@@ -41,17 +41,17 @@ var UserSession = connection.import(__dirname + '/user_session.js');
 User.hasMany(Post);
 Post.belongsTo(User);
 
-Category.belongsToMany(Session, {through: CategorySession, constraints: false});
-Session.belongsToMany(Category, {through: CategorySession, constraints: false});
+Category.belongsToMany(Session, { through: CategorySession, constraints: false });
+Session.belongsToMany(Category, { through: CategorySession, constraints: false });
 
-Post.belongsToMany(Hashtag, {through: HashtagPost, constraints: false});
-Hashtag.belongsToMany(Post, {through: HashtagPost, constraints: false});
+Post.belongsToMany(Hashtag, { through: HashtagPost, constraints: false });
+Hashtag.belongsToMany(Post, { through: HashtagPost, constraints: false });
 
-Session.belongsToMany(Speaker, {through: SessionSpeaker, constraints: false});
-Speaker.belongsToMany(Session, {through: SessionSpeaker, constraints: false});
+Session.belongsToMany(Speaker, { through: SessionSpeaker, constraints: false });
+Speaker.belongsToMany(Session, { through: SessionSpeaker, constraints: false });
 
-User.belongsToMany(Session, {through: UserSession, constraints: false});
-Session.belongsToMany(User, {through: UserSession, constraints: false});
+User.belongsToMany(Session, { through: UserSession, constraints: false });
+Session.belongsToMany(User, { through: UserSession, constraints: false });
 
 
 // setup the array of modules

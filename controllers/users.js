@@ -14,16 +14,14 @@ function showUser(req, res) {
 // TODO: for debuging remove when production
 function index(req, res) {
     User.findAll({
-        include: [
-            {
-                model: Session,
-                as: 'sessions'
-            }
-        ]
+        include: [{
+            model: Session,
+            as: 'sessions'
+        }]
     }).then(function (users) {
         res.status(200).send(users).end();
     }).catch(function (err) {
-        res.status(500).end()
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -46,9 +44,7 @@ function show(req, res) {
             res.status(200).send(user).end();
         }
     }).catch(function (err) {
-        res.status(500).send({
-            error: err
-        }).end();
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -69,9 +65,7 @@ function update(req, res) {
 
         res.status(200).send(user).end();
     }).catch(function (err) {
-        res.status(500).send({
-            error: err
-        }).end();
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -83,9 +77,9 @@ function update(req, res) {
 // PUT /users/:alias
 function updateWrapper(req, res) {
     if (!req.user || !req.params.alias || req.user.alias != req.params.alias) {
-        res.status(401).end()
+        res.status(401).end();
     } else {
-        return update(req, res)
+        return update(req, res);
     }
 }
 
@@ -101,10 +95,10 @@ function verify(req, res) {
         }).then(function () {
             res.status(200).end();
         }).catch(function (err) {
-            res.status(500).send({error: err}).end();
+            res.status(500).send({ error: err }).end();
         })
     } else {
-        res.status(400).send({error: "Invalid Key"}).end()
+        res.status(400).send({ error: "Invalid Key" }).end();
     }
 }
 
@@ -122,17 +116,15 @@ function logout(req, res) {
         User.update({
             token: null
         }, {
-            where: {
-                token: token
-            }
-        }).then(function () {
-            res.status(200).end();
-        }).catch(function (err) {
-            // 500: internal server error
-            res.status(500).send({
-                error: err
+                where: {
+                    token: token
+                }
+            }).then(function () {
+                res.status(200).end();
+            }).catch(function (err) {
+                // 500: internal server error
+                res.status(500).send({ error: err });
             });
-        })
     }
 }
 
@@ -198,7 +190,7 @@ var addSession = function (req, res) {
             callback(null, session);
         }).catch((err) => callback(err, null));
     }], function (err, results) {
-        if (err) res.send({error: err}).end();
+        if (err) res.send({ error: err }).end();
         var user = results[0];
         var session = results[1];
         if (session.number_of_seats - 1 >= 0) {
@@ -207,10 +199,10 @@ var addSession = function (req, res) {
                 session.save();
                 res.status(200).end();
             }).catch((err) => {
-                res.status(500).send({error: err}).end();
+                res.status(500).send({ error: err }).end();
             });
         } else {
-            res.status(400).send({error: "No enough seats"});
+            res.status(400).send({ error: "No enough seats" });
         }
     })
 };
@@ -235,7 +227,7 @@ var removeSession = function (req, res) {
             callback(null, session);
         }).catch((err) => callback(err, null));
     }], function (err, results) {
-        if (err) res.send({error: err}).end();
+        if (err) res.send({ error: err }).end();
         var user = results[0];
         var session = results[1];
         user.removeSession(session).then(() => {
@@ -243,7 +235,7 @@ var removeSession = function (req, res) {
             session.save();
             res.status(200).end();
         }).catch((err) => {
-            res.status(500).send({error: err}).end();
+            res.status(500).send({ error: err }).end();
         });
     })
 };

@@ -27,7 +27,7 @@ module.exports = function (sequalize, DataTypes) {
         report_link: {
             type: DataTypes.STRING
         },
-        number_of_seats:{
+        number_of_seats: {
             type: DataTypes.INTEGER
         }
     }, {

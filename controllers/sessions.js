@@ -6,34 +6,28 @@ var User = require('../models/main')('user');
 // GET /sessions
 var index = function (req, res) {
 
-        var page = req.params.page || 0;
-        var limit = req.params.limit || 10;
-        var offset = page * limit;
+    var page = req.params.page || 0;
+    var limit = req.params.limit || 10;
+    var offset = page * limit;
 
-        Session.findAll({
-            offset: offset,
-            limit: limit,
-            include: [
-                {
-                    model: Category,
-                    as: 'categories'
-                },
-                {
-                    model: Speaker,
-                    as: "speakers"
-                },
-                {
-                    model: User
-                }
-            ]
-        }).then(function (sessions) {
-            res.status(200).send(sessions).end();
-        }).catch(function (err) {
-            res.status(400).send({
-                error: err
-            }).end();
-        });
-    }
+    Session.findAll({
+        offset: offset,
+        limit: limit,
+        include: [{
+            model: Category,
+            as: 'categories'
+        }, {
+            model: Speaker,
+            as: "speakers"
+        }, {
+            model: User
+        }]
+    }).then(function (sessions) {
+        res.status(200).send(sessions).end();
+    }).catch(function (err) {
+        res.status(400).send({ error: err }).end();
+    });
+}
     ;
 
 // GET /sessions/:id
@@ -45,15 +39,12 @@ var show = function (req, res) {
         include: [{
             model: Category,
             as: 'categories'
-        },
-            {
-                model: Speaker,
-                as: 'speakers'
-            },
-            {
-                model: User
-            }
-        ]
+        }, {
+            model: Speaker,
+            as: 'speakers'
+        }, {
+            model: User
+        }]
     }).then(function (session) {
         if (!session) {
             res.status(404).send({
@@ -63,9 +54,7 @@ var show = function (req, res) {
             res.send(session).end();
         }
     }).catch(function (err) {
-        res.status(400).send({
-            error: err
-        }).end();
+        res.status(400).send({ error: err }).end();
     });
 };
 
@@ -95,9 +84,7 @@ var create = function (req, res) {
             }).end();
         });
     }).catch(function (err) {
-        res.status(400).send({
-            error: err
-        }).end();
+        res.status(400).send({ error: err }).end();
     });
 };
 
@@ -128,9 +115,7 @@ var update = function (req, res) {
             res.status(200).send(session).end();
         }
     }).catch(function (err) {
-        res.status(400).send({
-            error: err
-        }).end();
+        res.status(400).send({ error: err }).end();
     });
 };
 
@@ -143,9 +128,7 @@ var destroy = function (req, res) {
     }).then(function () {
         res.status(200).end();
     }).catch(function (err) {
-        res.status(500).send({
-            error: err
-        }).end();
+        res.status(500).send({ error: err }).end();
     });
 };
 
