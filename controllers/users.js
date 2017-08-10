@@ -123,7 +123,7 @@ function logout(req, res) {
                 res.status(200).end();
             }).catch(function (err) {
                 // 500: internal server error
-                res.status(500).send({ error: err });
+                res.status(500).send({ error: err }).end();
             });
     }
 }
@@ -171,7 +171,7 @@ function login(req, res) {
     });
 }
 
-// POST /user/:id/add/session/:sid
+// POST /users/:id/add/session/:sid
 var addSession = function (req, res) {
     parallel([(callback) => {
         User.findById(req.params.id).then((user) => {
@@ -202,13 +202,13 @@ var addSession = function (req, res) {
                 res.status(500).send({ error: err }).end();
             });
         } else {
-            res.status(400).send({ error: "No enough seats" });
+            res.status(400).send({ error: "No enough seats" }).end();
         }
     })
 };
 
 
-// POST /user/:id/remove/session/:sid
+// POST /users/:id/remove/session/:sid
 var removeSession = function (req, res) {
     parallel([(callback) => {
         User.findById(req.params.id).then((user) => {
