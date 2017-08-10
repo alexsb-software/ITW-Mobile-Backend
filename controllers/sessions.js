@@ -60,7 +60,6 @@ var show = function (req, res) {
 
 // POST /sessions
 var create = function (req, res) {
-    console.log(req.body);
     // type: "lecture", "workshop"
     // if lecture then available by default
     Session.create({
@@ -79,9 +78,7 @@ var create = function (req, res) {
             session.categories = categories;
             res.status(201).send(session).end();
         }).catch(function (err) {
-            res.status(400).send({
-                error: err
-            }).end();
+            res.status(400).send({ error: err }).end();
         });
     }).catch(function (err) {
         res.status(400).send({ error: err }).end();
@@ -106,9 +103,7 @@ var update = function (req, res) {
                 session.setCategories(categories).then(function () {
                     res.status(200).send(session).end();
                 }).catch(function (err) {
-                    res.status(400).send({
-                        error: err
-                    }).end();
+                    res.status(400).send({ error: err }).end();
                 });
             });
         } else {
