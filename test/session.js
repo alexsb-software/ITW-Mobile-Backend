@@ -60,7 +60,7 @@ describe('Sessions CRUD test', function () {
                 day: '2017-08-22', // 'YYYY-MM-DD'
                 type: 'lecture',
                 available: false,
-                categories: [2, 3] // ids 2, 3 because there was 1 inserted in a test before
+                categories: ['Physics', 'Dank Memes']
             }).expect(201).end(function (err, res) {
                 if (err) return done(err);
 

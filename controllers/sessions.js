@@ -63,9 +63,21 @@ var create = function (req, res) {
     }).then(function (session) {
         // insert categories
         var categories = req.body.categories;
-        session.setCategories(categories).then(function () {
-            session.categories = categories;
-            res.status(201).send(session).end();
+
+        Category.findAll({
+            where: { name: { $in: categories } }
+        }).then(function (cats) {
+            var cats_id = [];
+            cats.forEach((item, index) => {
+                cats_id.push(item.id);
+            });
+
+            session.setCategories(cats).then(function () {
+                session.categories = cats;
+                res.status(201).send(session).end();
+            }).catch(function (err) {
+                res.status(400).send({ error: err }).end();
+            });
         }).catch(function (err) {
             res.status(400).send({ error: err }).end();
         });
