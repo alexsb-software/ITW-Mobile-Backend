@@ -42,7 +42,7 @@ var show = function (req, res) {
 // POST /speakers
 var create = function (req, res) {
     Speaker.create(req.body, {
-        fields: ['name', 'email', 'phone', 'linkedin']
+        fields: ['name', 'email', 'phone', 'linkedin', 'bio']
     }).then(function (speaker) {
         res.status(201).send(speaker).end();
     }).catch(function (err) {
@@ -56,7 +56,7 @@ var update = function (req, res) {
         where: {
             id: req.params.id
         },
-        fields: ['name', 'email', 'phone', 'linkedin']
+        fields: ['name', 'email', 'phone', 'linkedin', 'bio']
     }).then(function (speaker) {
         if (!speaker) res.status(404).end();
 

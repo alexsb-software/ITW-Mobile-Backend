@@ -7,7 +7,7 @@ const config = require('./config');
 const passport = require('passport');
 const Strategy = require('passport-http-bearer').Strategy;
 const strategySetup = require('./helpers/auth_setup');
-const seed = require('./seeds.js');
+const seed = require('./seeds');
 
 
 // Routers importing

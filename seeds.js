@@ -1,3 +1,7 @@
+const categoriesSeeder = require('./seeders/categories');
+const sessionsSeeder = require('./seeders/sessions');
+const speakersSeeder = require('./seeders/speakers');
+
 var seed = function () {
 
     const config = require('./config');
@@ -7,9 +11,6 @@ var seed = function () {
     const User = require('./models/main')('user');
     const Post = require('./models/main')('post');
     const Hashtag = require('./models/main')('hashtag');
-    const Sponsor = require('./models/main')('sponsor');
-    const Category = require('./models/main')('category');
-    const Session = require('./models/main')('session');
 
     // force: true here is only in the development env change in config.js
     connection.sync({
@@ -37,27 +38,13 @@ var seed = function () {
         }).catch(console.log);
 
         // seed categories
-        // Category.create({ name: 'General' });
-        // Category.create({ name: 'Computer' });
-        // Category.create({ name: 'Electronics' });
-        // Category.create({ name: 'Communications' });
-        // Category.create({ name: 'Power (Electrical)' });
-        // Category.create({ name: 'Civil' });
+        categoriesSeeder();
 
         // seed sessions
-        const lecture_type = 'lecture';
-        const gallery_type = 'gallery';
-        const workshop_type = 'workshop';
+        // sessionsSeeder();
 
-        /*Session.create({
-            name: 'Registration',
-            start: '09:00',
-            end: '10:00',
-            day: '2017-08-21',
-            type: 'lecture',
-            categories: []
-        });*/
-
+        // seed speakers
+        speakersSeeder();
 
         // seed sponsors
 

@@ -6,17 +6,18 @@ module.exports = function (sequalize, DataTypes) {
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false,
             unique: true
         },
         phone: {
             type: DataTypes.STRING,
-            allowNull: true,
             unique: true
         },
         linkedin: {
             type: DataTypes.STRING,
             unique: true
+        }, 
+        bio: {
+            type: DataTypes.TEXT
         }
     });
 };
