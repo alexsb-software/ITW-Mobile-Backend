@@ -132,22 +132,22 @@ function logout(req, res) {
 // if information is valid
 function login(req, res) {
 
-    var alias = req.body.alias;
+    var email = req.body.email;
     var password = req.body.password;
     var token = null;
     // find the user with the alias and password
     User.findOne({
         where: {
-            alias: alias,
+            email: email,
         }
     }).then(function (user) {
         if (!user) {
             res.status(404).send({
-                error: 'Username or password is not correct .. '
+                error: 'Email or password is not correct .. '
             }).end();
         } else if (!bcrypt.compareSync(password, user.password)) {
             res.status(401).send({
-                error: "Username or password is incorrect .. "
+                error: "Email or password is incorrect .. "
             }).end();
         } else {
             tokenGenerator(User, false, function (token) {
