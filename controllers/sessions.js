@@ -1,6 +1,7 @@
 var Session = require('../models/main')('session');
 var Category = require('../models/main')('category');
 var Speaker = require('../models/main')('speaker');
+var User = require('../models/main')('user');
 
 // GET /sessions
 var index = function (req, res) {
@@ -13,17 +14,21 @@ var index = function (req, res) {
         offset: offset,
         limit: limit,
         include: [{
-            model: Category, as: 'categories'
-        },
-        {
-            model: Speaker, as: "speakers"
+            model: Category,
+            as: 'categories'
+        }, {
+            model: Speaker,
+            as: "speakers"
+        }, {
+            model: User
         }]
     }).then(function (sessions) {
         res.status(200).send(sessions).end();
     }).catch(function (err) {
         res.status(400).send({ error: err }).end();
     });
-};
+}
+    ;
 
 // GET /sessions/:id
 var show = function (req, res) {
@@ -32,14 +37,19 @@ var show = function (req, res) {
             id: req.params.id
         },
         include: [{
-            model: Category, as: 'categories'
-        },
-        {
-            model: Speaker, as: "speakers"
+            model: Category,
+            as: 'categories'
+        }, {
+            model: Speaker,
+            as: 'speakers'
+        }, {
+            model: User
         }]
     }).then(function (session) {
         if (!session) {
-            res.status(404).send({ error: "Session not found" }).end();
+            res.status(404).send({
+                error: "Session not found"
+            }).end();
         } else {
             res.send(session).end();
         }
@@ -59,7 +69,8 @@ var create = function (req, res) {
         day: req.body.day,
         type: req.body.type,
         available: req.body.type == "lecture" ? true : req.body.available,
-        report_link: req.body.req_link ? req.body.req_link : ''
+        report_link: req.body.req_link ? req.body.req_link : '',
+        number_of_seats: req.body.number_of_seats
     }).then(function (session) {
         // insert categories
         var categories = req.body.categories;
@@ -93,7 +104,8 @@ var update = function (req, res) {
             id: req.params.id
         },
         fields: ['name', 'start', 'end', 'day', 'type',
-            'available', 'report_link']
+            'available', 'report_link', 'number_of_seats'
+        ]
     }).then(function (session) {
         if (!session) res.status(404).end();
 

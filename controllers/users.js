@@ -1,7 +1,8 @@
 var User = require('../models/main')('user');
 var tokenGenerator = require('../helpers/auth_token');
 const bcrypt = require('bcrypt-nodejs');
-
+var Session = require('../models/main')('session');
+var parallel = require('async/parallel');
 
 // TODO: remove 
 // for debugging purpose only
@@ -12,10 +13,15 @@ function showUser(req, res) {
 
 // TODO: for debuging remove when production
 function index(req, res) {
-    User.findAll().then(function (users) {
+    User.findAll({
+        include: [{
+            model: Session,
+            as: 'sessions'
+        }]
+    }).then(function (users) {
         res.status(200).send(users).end();
     }).catch(function (err) {
-        res.status(500).end()
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -25,6 +31,10 @@ function show(req, res) {
         where: {
             alias: req.params.alias
         },
+        include: [{
+            model: Session, as: "sessions",
+            attributes: ["id", "name", "type"]
+        }],
         attributes: ['id', 'alias', 'email', 'collage', 'department']
     }).then(function (user) {
         if (!user) {
@@ -34,9 +44,7 @@ function show(req, res) {
             res.status(200).send(user).end();
         }
     }).catch(function (err) {
-        res.status(500).send({
-            error: err
-        }).end();
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -57,9 +65,7 @@ function update(req, res) {
 
         res.status(200).send(user).end();
     }).catch(function (err) {
-        res.status(500).send({
-            error: err
-        }).end();
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -71,9 +77,9 @@ function update(req, res) {
 // PUT /users/:alias
 function updateWrapper(req, res) {
     if (!req.user || !req.params.alias || req.user.alias != req.params.alias) {
-        res.status(401).end()
+        res.status(401).end();
     } else {
-        return update(req, res)
+        return update(req, res);
     }
 }
 
@@ -92,7 +98,7 @@ function verify(req, res) {
             res.status(500).send({ error: err }).end();
         })
     } else {
-        res.status(400).send({ error: "Invalid Key" }).end()
+        res.status(400).send({ error: "Invalid Key" }).end();
     }
 }
 
@@ -117,10 +123,8 @@ function logout(req, res) {
                 res.status(200).end();
             }).catch(function (err) {
                 // 500: internal server error
-                res.status(500).send({
-                    error: err
-                });
-            })
+                res.status(500).send({ error: err }).end();
+            });
     }
 }
 
@@ -167,6 +171,75 @@ function login(req, res) {
     });
 }
 
+// POST /users/:id/add/session/:sid
+var addSession = function (req, res) {
+    parallel([(callback) => {
+        User.findById(req.params.id).then((user) => {
+            if (!user) {
+                callback("User not found", null);
+                res.status(404);
+            }
+            callback(null, user);
+        }).catch((err) => callback(err, null));
+    }, (callback) => {
+        Session.findById(req.params.sid).then((session) => {
+            if (!session) {
+                res.status(404);
+                callback("Session not found", null);
+            }
+            callback(null, session);
+        }).catch((err) => callback(err, null));
+    }], function (err, results) {
+        if (err) res.send({ error: err }).end();
+        var user = results[0];
+        var session = results[1];
+        if (session.number_of_seats - 1 >= 0) {
+            user.addSession(session).then(() => {
+                session.number_of_seats -= 1;
+                session.save();
+                res.status(200).end();
+            }).catch((err) => {
+                res.status(500).send({ error: err }).end();
+            });
+        } else {
+            res.status(400).send({ error: "No enough seats" }).end();
+        }
+    })
+};
+
+
+// POST /users/:id/remove/session/:sid
+var removeSession = function (req, res) {
+    parallel([(callback) => {
+        User.findById(req.params.id).then((user) => {
+            if (!user) {
+                callback("User not found", null);
+                res.status(404);
+            }
+            callback(null, user);
+        }).catch((err) => callback(err, null));
+    }, (callback) => {
+        Session.findById(req.params.sid).then((session) => {
+            if (!session) {
+                res.status(404);
+                callback("Session not found", null);
+            }
+            callback(null, session);
+        }).catch((err) => callback(err, null));
+    }], function (err, results) {
+        if (err) res.status(500).send({ error: err }).end();
+        var user = results[0];
+        var session = results[1];
+        user.removeSession(session).then(() => {
+            session.number_of_seats += 1;
+            session.save();
+            res.status(200).end();
+        }).catch((err) => {
+            res.status(500).send({ error: err }).end();
+        });
+    })
+};
+
 module.exports = {
     login: login,
     logout: logout,
@@ -174,5 +247,7 @@ module.exports = {
     show: show,
     update: updateWrapper,
     verify: verify,
-    showUser: showUser
+    showUser: showUser,
+    removeSession: removeSession,
+    addSession: addSession
 };
