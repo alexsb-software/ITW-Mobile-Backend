@@ -60,7 +60,7 @@ describe('Sessions CRUD test', function () {
                 day: '2017-08-22', // 'YYYY-MM-DD'
                 type: 'lecture',
                 available: false,
-                categories: [2, 3] // ids 2, 3 because there was 1 inserted in a test before
+                categories: ['Physics', 'Dank Memes']
             }).expect(201).end(function (err, res) {
                 if (err) return done(err);
 
@@ -91,6 +91,8 @@ describe('Sessions CRUD test', function () {
                 if (err) return done(err);
                 var found = false;
 
+                console.log("\n\n\n" + JSON.stringify(res.body) + "\n\n\n");
+
                 res.body.forEach((item, index) => {
                     if (item.name === 'Introduction to Dark Matter') {
                         found = true;
@@ -107,7 +109,7 @@ describe('Sessions CRUD test', function () {
             .set('Authorization', 'Bearer ' + token)
             .send({
                 name: 'Introduction to Dank Matter',
-                categories: [4]
+                categories: ['Scyfy']
             })
             .expect(200)
             .end(function (err, res) {

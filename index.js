@@ -7,6 +7,7 @@ const config = require('./config');
 const passport = require('passport');
 const Strategy = require('passport-http-bearer').Strategy;
 const strategySetup = require('./helpers/auth_setup');
+const seed = require('./seeds');
 
 
 // Routers importing
@@ -20,40 +21,7 @@ const categoriesRouter = require('./routes/categories');
 const sessionsRouter = require('./routes/sessions')
 const speakersRouter = require('./routes/speakers');
 
-/* Database and models setup */
-const connection = require('./models/main')('connection');
-const User = require('./models/main')('user');
-const Post = require('./models/main')('post');
-const Hashtag = require('./models/main')('hashtag');
-const Sponsor = require('./models/main')('sponsor');
-const Category = require('./models/main')('category');
-const Session = require('./models/main')('session');
-
-// force: true here is only in the development env change in config.js
-connection.sync({
-    force: config.force
-}).then(function () {
-    console.log('Database created succesfully...');
-    // For Testing
-    User.create({
-        alias: "test",
-        password: "123456789",
-        name: "test",
-        email: "test@test.com"
-    }).then(function (user) {
-        console.log("User created successfully");
-        Post.create({
-            content: "initial topic",
-        }).then(function (post) {
-            Hashtag.create({
-                title: "test",
-            }).then((hashtag) => {
-                hashtag.setPosts([post]);
-                return user.setPosts([post]);
-            });
-        })
-    }).catch(console.log)
-}).catch(console.log);
+seed();
 
 // setup the body parser middelware
 app.use(bodyParser.json());

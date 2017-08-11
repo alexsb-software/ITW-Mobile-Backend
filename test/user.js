@@ -157,8 +157,8 @@ describe("Users Routers Test", function () {
                     }
                 }).then(user => {
                     new_token = user.token;
-                    console.log(new_token);
-                    console.log(token);
+                    // console.log(new_token);
+                    // console.log(token);
                     (token !== new_token).should.equal(true);
                     done();
                 }).catch(done);

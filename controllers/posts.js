@@ -27,14 +27,15 @@ function show(req, res) {
             id: req.params.id
         },
         include: [{
-            model: Hashtag, as: "hashtags"
+            model: Hashtag, as: "hashtags",
+            through: { attributes: [] }
         },
         {
             model: User,
             as: "user",
-            attributes: ["id", "alias", "email"]
-        }
-        ],
+            attributes: ["id", "alias", "email"],
+            through: { attributes: [] }
+        }],
         attributes: ['id', 'content', 'user_id']
     }).then(function (post) {
         if (!post) {
@@ -111,11 +112,6 @@ function destroy(req, res) {
         if (post.user_id !== req.user.id) {
             res.status(304).end();
         } else {
-            // Post.destory({
-            //     where: {
-            //         id: postId
-            //     }
-            // })
             post.destroy().then(function () {
                 res.status(200).end();
             }).catch(function (err) {

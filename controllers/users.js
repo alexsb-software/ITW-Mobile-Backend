@@ -21,7 +21,7 @@ function index(req, res) {
     }).then(function (users) {
         res.status(200).send(users).end();
     }).catch(function (err) {
-        res.status(500).send({ error: err }).end();
+        res.status(500).send({error: err}).end();
     })
 }
 
@@ -44,7 +44,7 @@ function show(req, res) {
             res.status(200).send(user).end();
         }
     }).catch(function (err) {
-        res.status(500).send({ error: err }).end();
+        res.status(500).send({error: err}).end();
     })
 }
 
@@ -65,7 +65,7 @@ function update(req, res) {
 
         res.status(200).send(user).end();
     }).catch(function (err) {
-        res.status(500).send({ error: err }).end();
+        res.status(500).send({error: err}).end();
     })
 }
 
@@ -95,10 +95,10 @@ function verify(req, res) {
         }).then(function () {
             res.status(200).end();
         }).catch(function (err) {
-            res.status(500).send({ error: err }).end();
+            res.status(500).send({error: err}).end();
         })
     } else {
-        res.status(400).send({ error: "Invalid Key" }).end();
+        res.status(400).send({error: "Invalid Key"}).end();
     }
 }
 
@@ -116,15 +116,15 @@ function logout(req, res) {
         User.update({
             token: null
         }, {
-                where: {
-                    token: token
-                }
-            }).then(function () {
-                res.status(200).end();
-            }).catch(function (err) {
-                // 500: internal server error
-                res.status(500).send({ error: err }).end();
-            });
+            where: {
+                token: token
+            }
+        }).then(function () {
+            res.status(200).end();
+        }).catch(function (err) {
+            // 500: internal server error
+            res.status(500).send({error: err}).end();
+        });
     }
 }
 
@@ -156,7 +156,8 @@ function login(req, res) {
                 }).then(function (user) {
                     res.setHeader('Authorization', 'Bearer ' + token);
                     res.status(200).send({
-                        mssg: "User logged in successfully.. "
+                        mssg: "User logged in successfully.. ",
+                        user : user
                     }).end();
                 }).catch(function (err) {
                     throw err
@@ -190,7 +191,7 @@ var addSession = function (req, res) {
             callback(null, session);
         }).catch((err) => callback(err, null));
     }], function (err, results) {
-        if (err) res.send({ error: err }).end();
+        if (err) res.send({error: err}).end();
         var user = results[0];
         var session = results[1];
         if (session.number_of_seats - 1 >= 0) {
@@ -199,10 +200,10 @@ var addSession = function (req, res) {
                 session.save();
                 res.status(200).end();
             }).catch((err) => {
-                res.status(500).send({ error: err }).end();
+                res.status(500).send({error: err}).end();
             });
         } else {
-            res.status(400).send({ error: "No enough seats" }).end();
+            res.status(400).send({error: "No enough seats"}).end();
         }
     })
 };
@@ -227,7 +228,7 @@ var removeSession = function (req, res) {
             callback(null, session);
         }).catch((err) => callback(err, null));
     }], function (err, results) {
-        if (err) res.status(500).send({ error: err }).end();
+        if (err) res.status(500).send({error: err}).end();
         var user = results[0];
         var session = results[1];
         user.removeSession(session).then(() => {
@@ -235,9 +236,25 @@ var removeSession = function (req, res) {
             session.save();
             res.status(200).end();
         }).catch((err) => {
-            res.status(500).send({ error: err }).end();
+            res.status(500).send({error: err}).end();
         });
     })
+};
+
+//POST /signup {alias: 'alias', name: 'bebo', email: 'b@b.com', password:'0931209'}
+var signup = function (req,res) {
+    User.create({
+        alias: req.body.alias,
+        password: req.body.password,
+        name: req.body.name,
+        email: req.body.email
+    }).then(function (createdUser) {
+        res.status(200).send({
+            user: createdUser
+        }).end();
+    }).catch((err) => {
+        res.status(500).send({error: err}).end();
+    });
 };
 
 module.exports = {
@@ -249,5 +266,6 @@ module.exports = {
     verify: verify,
     showUser: showUser,
     removeSession: removeSession,
-    addSession: addSession
+    addSession: addSession,
+    signup: signup
 };

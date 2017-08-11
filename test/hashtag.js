@@ -54,7 +54,7 @@ describe("Hashtag CRUD test", function () {
             .end(function (err, res) {
                 if (err) return done(err);
                 found = false;
-                console.log(res.body);
+                // console.log(res.body);
                 res.body.forEach((item, index) => {
                     if (item.title.includes("test")) {
                         found = true;
