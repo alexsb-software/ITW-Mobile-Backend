@@ -227,7 +227,7 @@ var removeSession = function (req, res) {
             callback(null, session);
         }).catch((err) => callback(err, null));
     }], function (err, results) {
-        if (err) res.send({ error: err }).end();
+        if (err) res.status(500).send({ error: err }).end();
         var user = results[0];
         var session = results[1];
         user.removeSession(session).then(() => {
