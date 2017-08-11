@@ -49,14 +49,14 @@ var seed = function () {
         const gallery_type = 'gallery';
         const workshop_type = 'workshop';
 
-        Session.create({
+        /*Session.create({
             name: 'Registration',
             start: '09:00',
             end: '10:00',
             day: '2017-08-21',
             type: 'lecture',
             categories: []
-        });
+        });*/
 
 
         // seed sponsors

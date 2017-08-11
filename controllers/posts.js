@@ -27,7 +27,8 @@ function show(req, res) {
             id: req.params.id
         },
         include: [{
-            model: Hashtag, as: "hashtags"
+            model: Hashtag, as: "hashtags",
+            through: { attributes: [] }
         },
         {
             model: User,

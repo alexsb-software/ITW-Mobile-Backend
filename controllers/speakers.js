@@ -25,7 +25,8 @@ var show = function (req, res) {
         where: { id: req.params.id },
         include: [{
             model: Session, as: "sessions",
-            attributes: ["id", "name", "type"]
+            attributes: ["id", "name", "type"],
+            through: { attributes: [] }
         }]
     }).then(function (speaker) {
         if (!speaker) {
