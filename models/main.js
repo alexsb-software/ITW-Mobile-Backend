@@ -32,6 +32,8 @@ var Session = connection.import(__dirname + '/session.js');
 var CategorySession = connection.import(__dirname + '/category_session.js');
 var Speaker = connection.import(__dirname + '/speaker.js');
 var SessionSpeaker = connection.import(__dirname + '/session_speaker.js');
+var UserSession = connection.import(__dirname + '/user_session.js');
+
 
 // if there's any relations put it here
 // Users.hasMany(Movies);
@@ -47,6 +49,10 @@ Hashtag.belongsToMany(Post, { through: HashtagPost, constraints: false });
 
 Session.belongsToMany(Speaker, { through: SessionSpeaker, constraints: false });
 Speaker.belongsToMany(Session, { through: SessionSpeaker, constraints: false });
+
+User.belongsToMany(Session, { through: UserSession, constraints: false });
+Session.belongsToMany(User, { through: UserSession, constraints: false });
+
 
 // setup the array of modules
 var modules = {
