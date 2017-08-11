@@ -41,7 +41,7 @@ var seed = function () {
         categoriesSeeder();
 
         // seed sessions
-        // sessionsSeeder();
+        sessionsSeeder();
 
         // seed speakers
         speakersSeeder();
