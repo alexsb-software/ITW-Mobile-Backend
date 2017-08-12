@@ -7,7 +7,6 @@ module.exports = function strategySetup(BearerStrategy, next) {
                 token: token
             }
         }).then(function (user) {
-            // console.log(user);
             if (!user) {
                 return callback(null, false);
             }

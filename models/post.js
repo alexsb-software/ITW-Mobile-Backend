@@ -10,11 +10,6 @@ module.exports = function (sequalize, DataTypes) {
                     msg: "Please provide content for the post with a length between 10, and 140 characters"
                 }
             }
-        },
-        user_id: {
-            type: DataTypes.INTEGER,
-            // allowNull:false,
-            unique: false
         }
     });
 };

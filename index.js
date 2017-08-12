@@ -8,6 +8,7 @@ const passport = require('passport');
 const Strategy = require('passport-http-bearer').Strategy;
 const strategySetup = require('./helpers/auth_setup');
 const seed = require('./seeds');
+const cors = require('cors');
 
 
 // Routers importing
@@ -23,6 +24,9 @@ const speakersRouter = require('./routes/speakers');
 
 seed();
 
+app.use(cors({ credentials: true, origin: true }));
+app.options('*', cors());
+
 // setup the body parser middelware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -35,22 +39,18 @@ app.use(express.static('public'));
 app.use(passport.initialize());
 passport.use(strategySetup(Strategy));
 
-
 // routers setup
 app.use(function (req, res, next) {
     var method = req.method;
     console.log(method, " request to: ", req.url);
-    next();
+    if (method == 'OPTIONS') {
+        res.send(200);
+    }
+    else {
+        next();
+    }
+    // next();
 });
-
-
-// Routers setup
-// authentication required for the movies route
-app.use('/movies',
-    // passport.authenticate('bearer', {
-    // session: false
-    // }),
-    moviesRouter);
 
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
@@ -63,10 +63,6 @@ app.use('/speakers', speakersRouter);
 // TODO: important need authentication for the admin route
 app.use('/admin', adminRouter);
 
-// app.get('/', function(req, res) {
-//     res.status(200).sendFile("index.html");
-// });
-
 app.get('/notification', function (req, res) {
     res.status(200).sendFile(__dirname + "/public/not.html");
 });
@@ -74,7 +70,6 @@ app.get('/notification', function (req, res) {
 app.get('/admin/notify', function (req, res) {
     res.status(200).sendFile(__dirname + "/public/notifications.html");
 })
-
 
 app.get('*', function (req, res) {
     res.status(404).end();

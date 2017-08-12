@@ -38,10 +38,10 @@ describe("Users Routers Test", function () {
     });
 
     // POST /users/login
-    it("should login if given the right alias and password", function (done) {
+    it("should login if given the right email and password", function (done) {
         agent.post("/users/login")
             .send({
-                alias: "test2",
+                email: "test@test.com",
                 password: "123456789"
             })
             .expect(200)
@@ -63,7 +63,7 @@ describe("Users Routers Test", function () {
     it("should return 404 if the user not found", function (done) {
         agent.post("/users/login")
             .send({
-                alias: "invalidname",
+                email: "invalid_email",
                 password: "123456789"
             })
             .expect(404)
@@ -74,7 +74,7 @@ describe("Users Routers Test", function () {
     it("should return 400 if the password is wrong", function (done) {
         agent.post('/users/login')
             .send({
-                alias: "test2",
+                email: "test@test.com",
                 password: "1244412"
             })
             .expect(400)
@@ -157,8 +157,6 @@ describe("Users Routers Test", function () {
                     }
                 }).then(user => {
                     new_token = user.token;
-                    // console.log(new_token);
-                    // console.log(token);
                     (token !== new_token).should.equal(true);
                     done();
                 }).catch(done);

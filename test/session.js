@@ -91,8 +91,6 @@ describe('Sessions CRUD test', function () {
                 if (err) return done(err);
                 var found = false;
 
-                console.log("\n\n\n" + JSON.stringify(res.body) + "\n\n\n");
-
                 res.body.forEach((item, index) => {
                     if (item.name === 'Introduction to Dark Matter') {
                         found = true;
@@ -123,7 +121,7 @@ describe('Sessions CRUD test', function () {
                         session.categories = categories;
 
                         session.name.should.equal('Introduction to Dank Matter');
-                        (session.categories[0].id == 4).should.equal(true);
+                        (session.categories[0].name === 'Scyfy').should.equal(true);
 
                         done();
                     }).catch(done);

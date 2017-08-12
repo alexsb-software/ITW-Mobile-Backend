@@ -22,6 +22,10 @@ router.post('/', passport.authenticate('bearer', {
     session: false
 }), postsController.post);
 
+// router.options('/', passport.authenticate('bearer', {
+//     session: false
+// }), postsController.post);
+
 // PUT /posts/:id
 router.put('/:id', passport.authenticate('bearer', {
     session: false
