@@ -39,17 +39,16 @@ app.use(express.static('public'));
 app.use(passport.initialize());
 passport.use(strategySetup(Strategy));
 
+app.all('/*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
+
 // routers setup
 app.use(function (req, res, next) {
     var method = req.method;
     console.log(method, " request to: ", req.url);
-    if (method == 'OPTIONS') {
-        res.send(200);
-    }
-    else {
-        next();
-    }
-    // next();
+    next();
 });
 
 app.use('/users', usersRouter);

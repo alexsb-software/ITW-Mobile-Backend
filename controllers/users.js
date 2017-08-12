@@ -132,13 +132,13 @@ function logout(req, res) {
 // if information is valid
 function login(req, res) {
 
-    var alias = req.body.alias;
+    var email = req.body.email;
     var password = req.body.password;
     var token = null;
     // find the user with the alias and password
     User.findOne({
         where: {
-            alias: alias,
+            email: email,
         }
     }).then(function (user) {
         if (!user) {
@@ -154,6 +154,7 @@ function login(req, res) {
                 user.update({
                     token: token
                 }).then(function (user) {
+                    console.log("\n\n\nbefore" + JSON.stringify(user.token) + "\n\n\n");
                     res.setHeader('Authorization', 'Bearer ' + token);
                     res.status(200).send({
                         mssg: "User logged in successfully.. ",

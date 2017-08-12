@@ -14,7 +14,8 @@ module.exports = function generateToken(User, v4, callback) {
         }
     }).then(function (user) {
         if (user) {
-            callback(generateToken(User, true));
+            // callback(generateToken(User, true));
+            return generateToken(User, true, callback);
         } else {
             callback(token);
         }
