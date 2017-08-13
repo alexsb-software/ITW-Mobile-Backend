@@ -15,18 +15,18 @@ router.get('/', categoriesController.index);
 router.get('/:id', categoriesController.show);
 
 // POST /categories
-router.post('/', passport.authenticate('bearer', {
+router.post('/', /* passport.authenticate('bearer', {
     session: false
-}), categoriesController.create);
+}), */ categoriesController.create);
 
 // PUT /categories/:id
-router.put('/:id', passport.authenticate('bearer', {
+router.put('/:id', /* passport.authenticate('bearer', {
     session: false
-}), categoriesController.update);
+}), */ categoriesController.update);
 
 // DELETE /categories/:id
-router.delete('/:id', passport.authenticate('bearer', {
+router.delete('/:id', /* passport.authenticate('bearer', {
     session: false
-}), categoriesController.destroy);
+}), */ categoriesController.destroy);
 
 module.exports = router;

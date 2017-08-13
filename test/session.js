@@ -59,6 +59,7 @@ describe('Sessions CRUD test', function () {
                 end: '01:00:00', // even darker
                 day: '2017-08-22', // 'YYYY-MM-DD'
                 type: 'lecture',
+                place: 'Black Whole',
                 available: false,
                 categories: ['Physics', 'Dank Memes']
             }).expect(201).end(function (err, res) {

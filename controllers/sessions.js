@@ -10,8 +10,6 @@ var index = function (req, res) {
     var offset = page * limit;
 
     Session.findAll({
-        offset: offset,
-        limit: limit,
         include: [{
             model: Category, as: 'categories',
             attributes: ['name'],
@@ -20,7 +18,8 @@ var index = function (req, res) {
         {
             model: Speaker, as: "speakers",
             through: { attributes: [] }
-        }]
+        }],
+        order: [['start', 'ASC']]
     }).then(function (sessions) {
         res.status(200).send(sessions).end();
     }).catch(function (err) {

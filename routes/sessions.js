@@ -21,13 +21,13 @@ router.post('/', sessionsController.create);
 // }), sessionsController.create);
 
 // PUT /sessions/:id
-router.put('/:id', passport.authenticate('bearer', {
+router.put('/:id', /* passport.authenticate('bearer', {
     session: false
-}), sessionsController.update);
+}), */ sessionsController.update);
 
 // DELETE /sessions/:id
-router.delete('/:id', passport.authenticate('bearer', {
+router.delete('/:id', /* passport.authenticate('bearer', {
     session: false
-}), sessionsController.destroy);
+}), */ sessionsController.destroy);
 
 module.exports = router;

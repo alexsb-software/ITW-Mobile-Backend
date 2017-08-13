@@ -15,18 +15,18 @@ router.get('/', sponsorsController.index);
 router.get('/:id', sponsorsController.show);
 
 // POST /sponsors
-router.post('/', passport.authenticate('bearer', {
+router.post('/', /* passport.authenticate('bearer', {
     session: false
-}), sponsorsController.create);
+}), */ sponsorsController.create);
 
 // PUT /sponsors/:id
-router.put('/:id', passport.authenticate('bearer', {
+router.put('/:id', /* passport.authenticate('bearer', {
     session: false
-}), sponsorsController.update);
+}), */ sponsorsController.update);
 
 // DELETE /sponsors/:id
-router.delete('/:id', passport.authenticate('bearer', {
+router.delete('/:id', /* passport.authenticate('bearer', {
     session: false
-}), sponsorsController.destroy);
+}), */ sponsorsController.destroy);
 
 module.exports = router;

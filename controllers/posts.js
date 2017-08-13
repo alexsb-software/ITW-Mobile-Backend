@@ -11,7 +11,11 @@ function index(req, res) {
 
     Post.findAll({
         offset: offset,
-        limit: limit
+        limit: limit,
+        order: [['updatedAt', 'DESC']],
+        include: {
+            model: User
+        }
     }).then(function (posts) {
         res.status(200).send(posts).end();
     }).catch(function (err) {
@@ -63,7 +67,7 @@ function create(req, res) {
 
     Post.create({
         content: content,
-        userId: req.user.id
+        userId: req.body.user.id
     }).then(function (post) {
         if (hashtagsArray && hashtagsArray.length > 0) {
             var counter = 0;
