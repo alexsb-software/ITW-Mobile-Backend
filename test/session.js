@@ -60,7 +60,6 @@ describe('Sessions CRUD test', function () {
                 day: '2017-08-22', // 'YYYY-MM-DD'
                 type: 'lecture',
                 place: 'Black Whole',
-                available: false,
                 categories: ['Physics', 'Dank Memes']
             }).expect(201).end(function (err, res) {
                 if (err) return done(err);
@@ -73,7 +72,6 @@ describe('Sessions CRUD test', function () {
                     session.getCategories().then(function (categories) {
                         session.categories = categories;
 
-                        session.available.should.equal(true);
                         (session.categories.length === 2).should.equal(true);
                         session_unique = session;
 

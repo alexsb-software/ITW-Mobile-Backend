@@ -56,7 +56,7 @@ var update = function (req, res) {
         where: {
             id: req.params.id
         },
-        fields: ['name', 'email', 'phone', 'linkedin', 'bio']
+        fields: ['name', 'email', 'phone', 'linkedin', 'bio', 'position']
     }).then(function (speaker) {
         if (!speaker) res.status(404).end();
 

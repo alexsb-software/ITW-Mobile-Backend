@@ -21,7 +21,7 @@ function index(req, res) {
     }).then(function (users) {
         res.status(200).send(users).end();
     }).catch(function (err) {
-        res.status(500).send({error: err}).end();
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -44,7 +44,7 @@ function show(req, res) {
             res.status(200).send(user).end();
         }
     }).catch(function (err) {
-        res.status(500).send({error: err}).end();
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -65,7 +65,7 @@ function update(req, res) {
 
         res.status(200).send(user).end();
     }).catch(function (err) {
-        res.status(500).send({error: err}).end();
+        res.status(500).send({ error: err }).end();
     })
 }
 
@@ -95,10 +95,10 @@ function verify(req, res) {
         }).then(function () {
             res.status(200).end();
         }).catch(function (err) {
-            res.status(500).send({error: err}).end();
+            res.status(500).send({ error: err }).end();
         })
     } else {
-        res.status(400).send({error: "Invalid Key"}).end();
+        res.status(400).send({ error: "Invalid Key" }).end();
     }
 }
 
@@ -116,15 +116,15 @@ function logout(req, res) {
         User.update({
             token: null
         }, {
-            where: {
-                token: token
-            }
-        }).then(function () {
-            res.status(200).end();
-        }).catch(function (err) {
-            // 500: internal server error
-            res.status(500).send({error: err}).end();
-        });
+                where: {
+                    token: token
+                }
+            }).then(function () {
+                res.status(200).end();
+            }).catch(function (err) {
+                // 500: internal server error
+                res.status(500).send({ error: err }).end();
+            });
     }
 }
 
@@ -158,7 +158,7 @@ function login(req, res) {
                     res.setHeader('Authorization', 'Bearer ' + token);
                     res.status(200).send({
                         mssg: "User logged in successfully.. ",
-                        user : user
+                        user: user
                     }).end();
                 }).catch(function (err) {
                     throw err
@@ -175,38 +175,25 @@ function login(req, res) {
 
 // POST /users/:id/add/session/:sid
 var addSession = function (req, res) {
-    parallel([(callback) => {
-        User.findById(req.params.id).then((user) => {
-            if (!user) {
-                callback("User not found", null);
-                res.status(404);
+    console.log(req.params);
+
+    User.findById(parseInt(req.params.id)).then(function (user) {
+        Session.findOne({ where: { id: req.params.sid } }).then(function (session) {
+            session = JSON.parse(session.dataValues);
+            console.log(session);
+            if (session.number_of_seats - 1 >= 0) {
+                user.addSession(session).then(() => {
+                    session.number_of_seats -= 1;
+                    session.save();
+                    res.status(200).end();
+                }).catch((err) => {
+                    res.status(500).send({ error: err }).end();
+                });
+            } else {
+                res.status(400).send({ error: "No enough seats" }).end();
             }
-            callback(null, user);
-        }).catch((err) => callback(err, null));
-    }, (callback) => {
-        Session.findById(req.params.sid).then((session) => {
-            if (!session) {
-                res.status(404);
-                callback("Session not found", null);
-            }
-            callback(null, session);
-        }).catch((err) => callback(err, null));
-    }], function (err, results) {
-        if (err) res.send({error: err}).end();
-        var user = results[0];
-        var session = results[1];
-        if (session.number_of_seats - 1 >= 0) {
-            user.addSession(session).then(() => {
-                session.number_of_seats -= 1;
-                session.save();
-                res.status(200).end();
-            }).catch((err) => {
-                res.status(500).send({error: err}).end();
-            });
-        } else {
-            res.status(400).send({error: "No enough seats"}).end();
-        }
-    })
+        }).catch(function (err) { res.status(404).send({ error: err }).end(); });
+    }).catch(function (err) { res.status(404).send({ error: err }).end(); });
 };
 
 
@@ -229,7 +216,7 @@ var removeSession = function (req, res) {
             callback(null, session);
         }).catch((err) => callback(err, null));
     }], function (err, results) {
-        if (err) res.status(500).send({error: err}).end();
+        if (err) res.status(500).send({ error: err }).end();
         var user = results[0];
         var session = results[1];
         user.removeSession(session).then(() => {
@@ -237,13 +224,13 @@ var removeSession = function (req, res) {
             session.save();
             res.status(200).end();
         }).catch((err) => {
-            res.status(500).send({error: err}).end();
+            res.status(500).send({ error: err }).end();
         });
     })
 };
 
 //POST /signup {alias: 'alias', name: 'bebo', email: 'b@b.com', password:'0931209'}
-var signup = function (req,res) {
+var signup = function (req, res) {
     User.create({
         alias: req.body.alias,
         password: req.body.password,
@@ -254,7 +241,7 @@ var signup = function (req,res) {
             user: createdUser
         }).end();
     }).catch((err) => {
-        res.status(500).send({error: err}).end();
+        res.status(500).send({ error: err }).end();
     });
 };
 

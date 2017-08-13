@@ -22,7 +22,8 @@ var seedSessions = function () {
             end: session.end,
             day: session.day,
             type: session.type,
-            place: session.place
+            place: session.place,
+            number_of_seats: session.number_of_seats
         }).then(function (created_session) {
             // insert categories
             var categories = session.categories;
@@ -125,7 +126,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: '3D Printing / Biomedical',
+            name: '3D Printing (Biomedical Applications)',
             start: '13:30',
             end: '14:15',
             day: day1,
@@ -201,6 +202,7 @@ var seedSessions = function () {
             day: day1,
             type: workshop_type,
             place: room_c_place,
+            number_of_seats: 20,
             categories: ['General']
         });
 
@@ -211,6 +213,7 @@ var seedSessions = function () {
             day: day1,
             type: workshop_type,
             place: delegates_hall_place,
+            number_of_seats: 20,
             categories: ['Computer']
         });
 
@@ -221,6 +224,7 @@ var seedSessions = function () {
             day: day1,
             type: workshop_type,
             place: room_c_place,
+            number_of_seats: 20,
             categories: ['Power (Electrical)']
         });
 
@@ -231,6 +235,7 @@ var seedSessions = function () {
             day: day1,
             type: workshop_type,
             place: delegates_hall_place,
+            number_of_seats: 20,
             categories: ['Computer']
         });
 
@@ -241,6 +246,7 @@ var seedSessions = function () {
             day: day1,
             type: workshop_type,
             place: delegates_hall_place,
+            number_of_seats: 20,
             categories: ['Computer']
         });
 
@@ -251,6 +257,7 @@ var seedSessions = function () {
             day: day1,
             type: workshop_type,
             place: room_c_place,
+            number_of_seats: 20,
             categories: ['Power (Electrical)', 'Mechanical']
         });
 
@@ -261,6 +268,7 @@ var seedSessions = function () {
             day: day1,
             type: workshop_type,
             place: delegates_hall_place,
+            number_of_seats: 20,
             categories: ['Computer']
         });
     }
@@ -429,6 +437,7 @@ var seedSessions = function () {
             day: day2,
             type: workshop_type,
             place: room_c_place,
+            number_of_seats: 20,
             categories: [''] // TODO: add category
         });
 
@@ -449,6 +458,7 @@ var seedSessions = function () {
             day: day2,
             type: workshop_type,
             place: bibliotheca_alexandrina_place,
+            number_of_seats: 20,
             categories: ['Computer']
         });
 
@@ -469,6 +479,7 @@ var seedSessions = function () {
             day: day2,
             type: workshop_type,
             place: bibliotheca_alexandrina_place,
+            number_of_seats: 20,
             categories: ['Computer']
         });
     }

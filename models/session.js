@@ -28,10 +28,6 @@ module.exports = function (sequalize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        available: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: true
-        },
         report_link: {
             type: DataTypes.STRING
         },

@@ -18,6 +18,9 @@ module.exports = function (sequalize, DataTypes) {
         }, 
         bio: {
             type: DataTypes.TEXT
+        },
+        position: {
+            type: DataTypes.STRING
         }
     });
 };
