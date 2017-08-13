@@ -12,7 +12,7 @@ function index(req, res) {
     Post.findAll({
         offset: offset,
         limit: limit,
-        order: [['updatedAt', 'DESC']],
+        order: [['createdAt', 'DESC']],
         include: {
             model: User
         }
