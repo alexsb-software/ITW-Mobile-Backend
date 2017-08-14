@@ -60,7 +60,7 @@ app.use('/sessions', sessionsRouter);
 app.use('/speakers', speakersRouter);
 
 // TODO: important need authentication for the admin route
-app.use('/admin', adminRouter);
+// app.use('/admin', adminRouter);
 
 app.get('/notification', function (req, res) {
     res.status(200).sendFile(__dirname + "/public/not.html");

@@ -20,18 +20,18 @@ router.get('/:page/:limit', speakersController.index);
 router.get('/:id', speakersController.show);
 
 // POST /speakers
-router.post('/', speakersController.create);
+// router.post('/', speakersController.create);
 
 // POST /speakers/:id/add/session/:sid
-router.post('/:id/add/session/:sid', speakersController.addSession);
+// router.post('/:id/add/session/:sid', speakersController.addSession);
 
 // POST /speakers/:id/remove/session/:sid
-router.post('/:id/remove/session/:sid', speakersController.removeSession);
+// router.post('/:id/remove/session/:sid', speakersController.removeSession);
 
 // PUT /speakers/:id
-router.put('/:id', speakersController.update);
+// router.put('/:id', speakersController.update);
 
 // DELETE /speakers/id
-router.delete('/:id', speakersController.destroy);
+// router.delete('/:id', speakersController.destroy);
 
 module.exports = router;
