@@ -10,8 +10,6 @@ var index = function (req, res) {
     var offset = page * limit;
 
     Session.findAll({
-        offset: offset,
-        limit: limit,
         include: [{
             model: Category, as: 'categories',
             attributes: ['name'],
@@ -20,7 +18,8 @@ var index = function (req, res) {
         {
             model: Speaker, as: "speakers",
             through: { attributes: [] }
-        }]
+        }],
+        order: [['start', 'ASC']]
     }).then(function (sessions) {
         res.status(200).send(sessions).end();
     }).catch(function (err) {
@@ -37,7 +36,7 @@ var show = function (req, res) {
         include: [{
             model: Category, as: 'categories',
             attributes: ['name'],
-            through: { attributes: [] }
+            through: { attributes: ['name'] }
         },
         {
             model: Speaker, as: "speakers",
@@ -58,15 +57,13 @@ var show = function (req, res) {
 
 // POST /sessions
 var create = function (req, res) {
-    // type: "lecture", "workshop"
-    // if lecture then available by default
+    // type: "lecture", "workshop", "gallery"
     Session.create({
         name: req.body.name,
         start: req.body.start,
         end: req.body.end,
         day: req.body.day,
         type: req.body.type,
-        available: req.body.type == "lecture" ? true : req.body.available,
         report_link: req.body.req_link ? req.body.req_link : '',
         number_of_seats: req.body.number_of_seats
     }).then(function (session) {
@@ -101,8 +98,8 @@ var update = function (req, res) {
         where: {
             id: req.params.id
         },
-        fields: ['name', 'start', 'end', 'day', 'type',
-            'available', 'report_link', 'number_of_seats'
+        fields: ['name', 'start', 'end', 'day', 'type', 'place',
+            'report_link', 'number_of_seats'
         ]
     }).then(function (session) {
         if (!session) res.status(404).end();

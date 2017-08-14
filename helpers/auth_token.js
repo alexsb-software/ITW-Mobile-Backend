@@ -7,21 +7,19 @@ module.exports = function generateToken(User, v4, callback) {
     } else {
         token = uuid.v1();
     }
-    // console.log(token);
+
     User.findOne({
         where: {
             token: token
         }
     }).then(function (user) {
-        // console.log("User with this token exist..")
         if (user) {
-            callback(generateToken(User, true));
+            // callback(generateToken(User, true));
+            return generateToken(User, true, callback);
         } else {
-            // console.log(token);
             callback(token);
         }
     }).catch(function (error) {
-        // console.log(error);
         throw new Error("Internal server error");
     });
 }

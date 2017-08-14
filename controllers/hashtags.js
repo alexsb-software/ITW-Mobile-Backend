@@ -51,33 +51,6 @@ function show(req, res) {
     });
 }
 
-function createAndLinkToPost(title, post, callbackOut) {
-    Hashtag.findOrCreate({
-        where: {
-            title: title
-        }
-    }).spread(function (hashtag, created) {
-        async.parallel([
-            function (callback) {
-                hashtag.addPost(post).then(() => {
-                    callback();
-                })
-            },
-            function (callback) {
-                post.addHashtag(hashtag).then(() => {
-                    callback();
-                })
-            }
-        ], function (err, results) {
-            if (err) {
-                callbackOut(err);
-            } else {
-                callbackOut();
-            }
-        })
-    });
-}
-
 function count(req, res) {
     Hashtag.findOne({
         where: {
@@ -97,6 +70,5 @@ module.exports = {
     index: index,
     show: show,
     create: create,
-    createAndLinkToPost: createAndLinkToPost,
     count: count
 }

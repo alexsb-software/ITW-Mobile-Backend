@@ -12,22 +12,24 @@ router.post('/login', usersController.login);
 router.post('/logout', usersController.logout);
 router.get('/:alias', usersController.show);
 router.get('/', usersController.index);
-router.post('/:id/add/session/:sid', usersController.addSession);
-router.post('/:id/remove/session/:sid', usersController.removeSession);
+router.post('/:id/add/session/:sid',passport.authenticate('bearer', {
+    session: false
+}), usersController.addSession);
+// router.post('/:id/remove/session/:sid', usersController.removeSession);
 router.post('/signup', usersController.signup);
 
 // updating the user must be authorized 
-router.put('/:alias', passport.authenticate('bearer', {
-    session: false
-}), usersController.update);
+// router.put('/:alias', passport.authenticate('bearer', {
+//     session: false
+// }), usersController.update);
 
 // verify the user
-router.post('/verify', passport.authenticate('bearer', {
-    session: false
-}), usersController.verify);
+// router.post('/verify', passport.authenticate('bearer', {
+//     session: false
+// }), usersController.verify);
 
-router.get('/showuser', passport.authenticate('bearer', {
-    session: false
-}), usersController.showUser);
+// router.get('/showuser', passport.authenticate('bearer', {
+//     session: false
+// }), usersController.showUser);
 
 module.exports = router;

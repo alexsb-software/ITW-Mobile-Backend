@@ -15,19 +15,19 @@ router.get('/', sessionsController.index);
 router.get('/:id', sessionsController.show);
 
 // POST /sessions
-router.post('/', sessionsController.create);
+// router.post('/', sessionsController.create);
 // router.post('/', passport.authenticate('bearer', {
 //     session: false
 // }), sessionsController.create);
 
-// PUT /sessions/:id
-router.put('/:id', passport.authenticate('bearer', {
-    session: false
-}), sessionsController.update);
+// // PUT /sessions/:id
+// router.put('/:id', /* passport.authenticate('bearer', {
+//     session: false
+// }), */ sessionsController.update);
 
 // DELETE /sessions/:id
-router.delete('/:id', passport.authenticate('bearer', {
-    session: false
-}), sessionsController.destroy);
+// router.delete('/:id', /* passport.authenticate('bearer', {
+//     session: false
+// }), */ sessionsController.destroy);
 
 module.exports = router;

@@ -13,22 +13,23 @@ router.get('/', postsController.index);
 
 // GET /posts/:page/:limit
 router.get('/:page/:limit', postsController.index);
+router.get('/:page', postsController.index);
 
 // GET /posts/:id
 router.get('/:id', postsController.show);
 
 // POST /posts
-router.post('/', passport.authenticate('bearer', {
+router.post('/',  passport.authenticate('bearer', {
     session: false
 }), postsController.post);
 
-// PUT /posts/:id
-router.put('/:id', passport.authenticate('bearer', {
-    session: false
-}), postsController.update);
+// // PUT /posts/:id
+// router.put('/:id',  passport.authenticate('bearer', {
+//     session: false
+// }),  postsController.update);
 
-router.delete('/:id', passport.authenticate('bearer', {
-    session: false
-}), postsController.destroy);
+// router.delete('/:id', passport.authenticate('bearer', {
+//     session: false
+// }), postsController.destroy);
 
 module.exports = router;

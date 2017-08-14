@@ -1,6 +1,5 @@
 var Post = require('../models/main')('post');
 var each = require('async/each');
-var HashtagController = require('../controllers/hashtags');
 var Hashtag = require('../models/main')('hashtag');
 var User = require('../models/main')('user');
 
@@ -12,7 +11,13 @@ function index(req, res) {
 
     Post.findAll({
         offset: offset,
-        limit: limit
+        limit: limit,
+        order: [['createdAt', 'DESC']],
+        include: [{
+            model: User
+        }, {
+            model: Hashtag, as: "hashtags"
+        }]
     }).then(function (posts) {
         res.status(200).send(posts).end();
     }).catch(function (err) {
@@ -36,7 +41,7 @@ function show(req, res) {
             attributes: ["id", "alias", "email"],
             through: { attributes: [] }
         }],
-        attributes: ['id', 'content', 'user_id']
+        attributes: ['id', 'content', 'userId']
     }).then(function (post) {
         if (!post) {
             // user not found send 404
@@ -62,13 +67,29 @@ function create(req, res) {
     var content = req.body.content;
     var hashtagsArray = req.body.hashtags;
 
-    Post.create({ content: content, user_id: req.user.id }).then(function (post) {
+    Post.create({
+        content: content,
+        userId: req.body.user.id
+    }).then(function (post) {
         if (hashtagsArray && hashtagsArray.length > 0) {
-            async.each(hashtagsArray, function (title, callback) {
-                HashtagController.createAndLinkToPost(title, post, callback);
-            })
-        } else {
-            res.status(201).send(post).end();
+            var counter = 0;
+
+            hashtagsArray.forEach(function (title) {
+                Hashtag.findOrCreate({
+                    where: {
+                        title: title
+                    }
+                }).spread(function (hashtag, created) {
+                    post.addHashtag(hashtag);
+                    counter++;
+
+                    if (counter == hashtagsArray.length) {
+                        res.status(201).send(post).end();
+                    }
+                }).catch(function (err) {
+                    res.status(500).send({ error: err }).end();
+                });
+            });
         }
     }).catch(function (err) {
         res.status(500).send({ error: err }).end();
@@ -78,27 +99,44 @@ function create(req, res) {
 
 function update(req, res) {
     var postId = req.params.id;
-    Post.findOne({
-        where: {
-            id: postId
-        }
-    }).then(function (post) {
-        if (!post) res.status(404).end();
 
-        if (post.user_id !== req.user.id) {
-            res.status(304).end();
-        } else {
-            post.update(req.body, {
-                fields: ['content']
-            }).then(function (post) {
-                res.status(200).send(post).end();
-            }).catch(function (err) {
-                res.status(500).send({ error: err }).end();
-            });
-        }
+    Post.update(
+        { content: req.body.content },
+        { where: { id: postId } }
+    ).then(function (post) {
+        Post.findOne({
+            where: { id: postId }
+        }).then(function (post) {
+            var hashtagsArray = req.body.hashtags;
+            if (hashtagsArray && hashtagsArray.length > 0) {
+                var counter = 0;
+                post.setHashtags([]);
+
+                hashtagsArray.forEach(function (title) {
+                    Hashtag.findOrCreate({
+                        where: {
+                            title: title
+                        }
+                    }).spread(function (hashtag, created) {
+                        post.addHashtag(hashtag).then(function () {
+                            counter++;
+
+                            if (counter == hashtagsArray.length) {
+                                res.status(200).send(post).end();
+                            }
+                        });
+                    }).catch(function (err) {
+                        res.status(500).send({ error: err }).end();
+                    });
+                });
+            }
+        }).catch(function (err) {
+            res.status(500).send({ error: err }).end();
+        });
     }).catch(function (err) {
         res.status(500).send({ error: err }).end();
     });
+
 }
 
 function destroy(req, res) {
@@ -109,7 +147,7 @@ function destroy(req, res) {
         }
     }).then(function (post) {
         if (!post) res.status(404).end();
-        if (post.user_id !== req.user.id) {
+        if (post.userId !== req.user.id) {
             res.status(304).end();
         } else {
             post.destroy().then(function () {
