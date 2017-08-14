@@ -175,25 +175,39 @@ function login(req, res) {
 
 // POST /users/:id/add/session/:sid
 var addSession = function (req, res) {
-    console.log(req.params);
 
-    User.findById(parseInt(req.params.id)).then(function (user) {
-        Session.findOne({ where: { id: req.params.sid } }).then(function (session) {
-            session = JSON.parse(session.dataValues);
-            console.log(session);
-            if (session.number_of_seats - 1 >= 0) {
-                user.addSession(session).then(() => {
-                    session.number_of_seats -= 1;
-                    session.save();
-                    res.status(200).end();
-                }).catch((err) => {
-                    res.status(500).send({ error: err }).end();
-                });
-            } else {
-                res.status(400).send({ error: "No enough seats" }).end();
+    parallel([(callback) => {
+        User.findById(req.params.id).then((user) => {
+            if (!user) {
+                callback("User not found", null);
+                res.status(404);
             }
-        }).catch(function (err) { res.status(404).send({ error: err }).end(); });
-    }).catch(function (err) { res.status(404).send({ error: err }).end(); });
+            callback(null, user);
+        }).catch((err) => callback(err, null));
+    }, (callback) => {
+        Session.findById(req.params.sid).then((session) => {
+            if (!session) {
+                res.status(404);
+                callback("Session not found", null);
+            }
+            callback(null, session);
+        }).catch((err) => callback(err, null));
+    }], function (err, results) {
+        if (err) res.status(500).send({ error: err }).end();
+        var user = results[0];
+        var session = results[1];
+        if (session.number_of_seats > 0) {
+            user.addSession(session).then(() => {
+                session.number_of_seats -= 1;
+                session.save();
+                res.status(200).end();
+            }).catch((err) => {
+                res.status(500).send({ error: err }).end();
+            });
+        } else {
+            res.status(400).send({ error: "No enough seats" }).end();
+        }
+    })
 };
 
 
