@@ -36,6 +36,10 @@ module.exports = function (sequalize, DataTypes) {
         },
         place: {
             type: DataTypes.STRING
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true
         }
     }, {
             hooks: {

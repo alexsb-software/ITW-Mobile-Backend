@@ -18,33 +18,33 @@ var seed = function () {
     }).then(function () {
         console.log('Database created succesfully...');
         // For Testing
-        // User.create({
-        //     alias: "test",
-        //     password: "123456789",
-        //     name: "test",
-        //     email: "test@test.com"
-        // }).then(function (user) {
-        //     console.log("User created successfully");
-        //     Post.create({
-        //         content: "initial topic",
-        //     }).then(function (post) {
-        //         Hashtag.create({
-        //             title: "test",
-        //         }).then((hashtag) => {
-        //             hashtag.setPosts([post]);
-        //             return user.setPosts([post]);
-        //         });
-        //     })
-        // }).catch(console.log);
+        User.create({
+            alias: "test",
+            password: "123456789",
+            name: "test",
+            email: "test@test.com"
+        }).then(function (user) {
+            console.log("User created successfully");
+            Post.create({
+                content: "initial topic",
+            }).then(function (post) {
+                Hashtag.create({
+                    title: "test",
+                }).then((hashtag) => {
+                    hashtag.setPosts([post]);
+                    return user.setPosts([post]);
+                });
+            })
+        }).catch(console.log);
 
         // seed categories
-        // categoriesSeeder();
+        categoriesSeeder();
 
         // seed sessions
-        // sessionsSeeder();
+        sessionsSeeder();
 
         // seed speakers
-        // speakersSeeder();
+        speakersSeeder();
 
         // seed sponsors
 

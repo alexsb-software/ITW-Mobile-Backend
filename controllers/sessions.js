@@ -36,7 +36,7 @@ var show = function (req, res) {
         include: [{
             model: Category, as: 'categories',
             attributes: ['name'],
-            through: { attributes: [] }
+            through: { attributes: ['name'] }
         },
         {
             model: Speaker, as: "speakers",
