@@ -196,17 +196,28 @@ var addSession = function (req, res) {
         if (err) res.status(500).send({ error: err }).end();
         var user = results[0];
         var session = results[1];
-        if (session.number_of_seats > 0) {
-            user.addSession(session).then(() => {
-                session.number_of_seats -= 1;
-                session.save();
-                res.status(200).end();
-            }).catch((err) => {
-                res.status(500).send({ error: err }).end();
-            });
-        } else {
-            res.status(400).send({ error: "No enough seats" }).end();
-        }
+
+        user.getSessions().then((sessions) => {
+            sessions.forEach((element) => {
+                if (session.id == element.id) {
+                    res.status(400).send({ error: "User already reserved this session" }).end();
+                }
+            }, this);
+
+            if (session.number_of_seats > 0) {
+                user.addSession(session).then(() => {
+                    session.number_of_seats -= 1;
+                    session.save();
+                    res.status(200).send({ message: "Session reserved successfully" }).end();
+                }).catch((err) => {
+                    res.status(500).send({ error: err }).end();
+                });
+            } else {
+                res.status(400).send({ error: "No enough seats" }).end();
+            }
+
+        });
+
     })
 };
 
