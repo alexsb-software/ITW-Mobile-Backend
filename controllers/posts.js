@@ -13,9 +13,11 @@ function index(req, res) {
         offset: offset,
         limit: limit,
         order: [['createdAt', 'DESC']],
-        include: {
+        include: [{
             model: User
-        }
+        }, {
+            model: Hashtag, as: "hashtags"
+        }]
     }).then(function (posts) {
         res.status(200).send(posts).end();
     }).catch(function (err) {

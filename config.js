@@ -23,7 +23,7 @@ var config = {
             default_channel: "my-channel",
             default_event: "my-event"
         },
-        force: true, // forcing sequelizer to drop tables
+        force: false, // forcing sequelizer to drop tables
         port: 8000
     }
 };

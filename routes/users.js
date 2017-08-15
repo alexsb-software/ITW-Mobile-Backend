@@ -28,14 +28,14 @@ router.get('/:id/sessions', passport.authenticate('bearer', {
 }), usersController.getSessions);
 
 // updating the user must be authorized 
-router.put('/:alias', passport.authenticate('bearer', {
-    session: false
-}), usersController.update);
+// router.put('/:alias', passport.authenticate('bearer', {
+//     session: false
+// }), usersController.update);
 
 // verify the user
-router.post('/verify', passport.authenticate('bearer', {
-    session: false
-}), usersController.verify);
+// router.post('/verify', passport.authenticate('bearer', {
+//     session: false
+// }), usersController.verify);
 
 // router.get('/showuser', passport.authenticate('bearer', {
 //     session: false
