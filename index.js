@@ -7,8 +7,10 @@ const config = require('./config');
 const passport = require('passport');
 const Strategy = require('passport-http-bearer').Strategy;
 const strategySetup = require('./helpers/auth_setup');
-const seed = require('./seeds');
+// const seed = require('./seeds');
 const cors = require('cors');
+const connection = require('./models/main')('connection');
+const fs = require('fs');
 
 
 // Routers importing
@@ -22,7 +24,10 @@ const categoriesRouter = require('./routes/categories');
 const sessionsRouter = require('./routes/sessions')
 const speakersRouter = require('./routes/speakers');
 
-seed();
+connection.sync({
+    force: config.force
+});
+
 
 app.use(cors({ credentials: true, origin: true }));
 app.options('*', cors());
@@ -60,10 +65,14 @@ app.use('/sessions', sessionsRouter);
 app.use('/speakers', speakersRouter);
 
 // TODO: important need authentication for the admin route
-// app.use('/admin', adminRouter);
+app.use('/admin', adminRouter);
 
 app.get('/notification', function (req, res) {
     res.status(200).sendFile(__dirname + "/public/not.html");
+});
+
+app.get('/keys', function (req, res) {
+    res.send(keys).status(200);
 });
 
 app.get('/admin/notify', function (req, res) {
@@ -79,3 +88,4 @@ var port = process.env.PORT || config.port;
 app.listen(port, function () {
     console.log('Server running on port: ', port);
 });
+

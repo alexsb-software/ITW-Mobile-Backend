@@ -3,8 +3,14 @@ var tokenGenerator = require('../helpers/auth_token');
 const bcrypt = require('bcrypt-nodejs');
 var Session = require('../models/main')('session');
 var parallel = require('async/parallel');
+var fs = require('fs');
+let keys;
+fs.readFile('keys.json', (err, data) => {
+    if (err) throw err;
+    keys = JSON.parse(data);
+});
 
-// TODO: remove 
+// TODO: remove
 // for debugging purpose only
 function showUser(req, res) {
     res.send(user).end()
@@ -272,18 +278,22 @@ var getSessions = function (req, res) {
 
 //POST /signup {alias: 'alias', name: 'bebo', email: 'b@b.com', password:'0931209'}
 var signup = function (req, res) {
-    User.create({
-        alias: req.body.alias,
-        password: req.body.password,
-        name: req.body.name,
-        email: req.body.email
-    }).then(function (createdUser) {
-        res.status(200).send({
-            user: createdUser
-        }).end();
-    }).catch((err) => {
-        res.status(500).send({ error: err }).end();
-    });
+    if(keys.indexOf(req.body.key) != -1) {
+        User.create({
+            alias: req.body.alias,
+            password: req.body.password,
+            name: req.body.name,
+            email: req.body.email
+        }).then(function (createdUser) {
+            res.status(200).send({
+                user: createdUser
+            }).end();
+        }).catch((err) => {
+            res.status(500).send({error: err}).end();
+        });
+    } else {
+        res.status(401).send({error: 'Key not found'}).end();
+    }
 };
 
 module.exports = {
