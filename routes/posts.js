@@ -19,17 +19,17 @@ router.get('/:page', postsController.index);
 router.get('/:id', postsController.show);
 
 // POST /posts
-router.post('/', /* passport.authenticate('bearer', {
+router.post('/', passport.authenticate('bearer', {
     session: false
-}), */ postsController.post);
+}), postsController.post);
 
 // PUT /posts/:id
-router.put('/:id', /* passport.authenticate('bearer', {
+router.put('/:id', passport.authenticate('bearer', {
     session: false
-}), */ postsController.update);
+}), postsController.update);
 
-router.delete('/:id', /* passport.authenticate('bearer', {
-    session: false
-}), */ postsController.destroy);
+// router.delete('/:id', passport.authenticate('bearer', {
+//     session: false
+// }), postsController.destroy);
 
 module.exports = router;

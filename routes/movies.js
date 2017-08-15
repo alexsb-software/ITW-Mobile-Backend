@@ -8,9 +8,9 @@ router.use(function (req, res, next) {
 });
 
 // GET /movies/
-router.get('/', moviesController.index);
+// router.get('/', moviesController.index);
 
-router.get('/:id', moviesController.show);
-router.post('/new', moviesController.post);
+// router.get('/:id', moviesController.show);
+// router.post('/new', moviesController.post);
 
 module.exports = router;

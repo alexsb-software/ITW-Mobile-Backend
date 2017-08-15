@@ -19,7 +19,9 @@ router.get('/', hashtagController.index);
 router.get('/:page/:limit', hashtagController.index);
 
 // POST /hashtags
-router.post('/', hashtagController.create);
+router.post('/', passport.authenticate('bearer', {
+    session: false
+}), hashtagController.create);
 
 // GET /hashtags/:title/post/count
 router.get('/:title/posts/count', hashtagController.count);

@@ -20,18 +20,28 @@ router.get('/:page/:limit', speakersController.index);
 router.get('/:id', speakersController.show);
 
 // POST /speakers
-router.post('/', speakersController.create);
+router.post('/', passport.authenticate('bearer', {
+    session: false
+}), speakersController.create);
 
 // POST /speakers/:id/add/session/:sid
-router.post('/:id/add/session/:sid', speakersController.addSession);
+router.post('/:id/add/session/:sid', passport.authenticate('bearer', {
+    session: false
+}), speakersController.addSession);
 
 // POST /speakers/:id/remove/session/:sid
-router.post('/:id/remove/session/:sid', speakersController.removeSession);
+router.post('/:id/remove/session/:sid', passport.authenticate('bearer', {
+    session: false
+}), speakersController.removeSession);
 
 // PUT /speakers/:id
-router.put('/:id', speakersController.update);
+router.put('/:id', passport.authenticate('bearer', {
+    session: false
+}), speakersController.update);
 
 // DELETE /speakers/id
-router.delete('/:id', speakersController.destroy);
+// router.delete('/:id', passport.authenticate('bearer', {
+//     session: false
+// }), speakersController.destroy);
 
 module.exports = router;

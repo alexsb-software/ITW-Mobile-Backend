@@ -254,6 +254,22 @@ var removeSession = function (req, res) {
     })
 };
 
+// GET /users/:id/sessions
+var getSessions = function (req, res) {
+    console.log(req.params);
+    User.findById(req.params.id).then((user) => {
+        user.getSessions().then((sessions) => {
+            res.status(200).send(sessions).end();
+        }).catch((err) => {
+            console.log(err);
+            res.status(404).send({ error: "No sessions reserved." }).end();
+        });
+    }).catch((err) => {
+        console.log(err);
+        res.status(404).send({ error: "User not found" }).end();
+    });
+};
+
 //POST /signup {alias: 'alias', name: 'bebo', email: 'b@b.com', password:'0931209'}
 var signup = function (req, res) {
     User.create({
@@ -280,5 +296,6 @@ module.exports = {
     showUser: showUser,
     removeSession: removeSession,
     addSession: addSession,
-    signup: signup
+    signup: signup,
+    getSessions: getSessions
 };
