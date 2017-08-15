@@ -4,3 +4,4 @@ vendor
 build/Release
 .idea
 .env
+keys.json
