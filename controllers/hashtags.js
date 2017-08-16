@@ -1,5 +1,6 @@
 var Hashtag = require('../models/main')('hashtag');
 var Post = require('../models/main')('post');
+var User = require('../models/main')('user');
 
 var parallel = require('async/parallel');
 
@@ -41,7 +42,7 @@ function show(req, res) {
             title: title
         },
         include: [{
-            model: Post, as: "posts",
+            model: Post,
             include: [{
                 model: User
             }]
