@@ -75,6 +75,10 @@ app.get('/keys', function (req, res) {
     res.send(keys).status(200);
 });
 
+app.get('/failurejson', function (req, res) {
+    res.status(401).send({ error: 'Unauthorized' });
+})
+
 app.get('/admin/notify', function (req, res) {
     res.status(200).sendFile(__dirname + "/public/notifications.html");
 })

@@ -14,7 +14,8 @@ router.post('/login', usersController.login);
 router.post('/logout', usersController.logout);
 
 router.post('/:id/add/session/:sid', passport.authenticate('bearer', {
-    session: false
+    session: false,
+    failureRedirect: '/failurejson'
 }), usersController.addSession);
 
 router.post('/:id/remove/session/:sid', passport.authenticate('bearer', {
@@ -33,9 +34,7 @@ router.get('/:id/sessions', passport.authenticate('bearer', {
 // }), usersController.update);
 
 // verify the user
-// router.post('/verify', passport.authenticate('bearer', {
-//     session: false
-// }), usersController.verify);
+router.post('/:id/verify', usersController.verify);
 
 // router.get('/showuser', passport.authenticate('bearer', {
 //     session: false

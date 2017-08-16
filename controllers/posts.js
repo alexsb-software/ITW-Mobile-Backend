@@ -69,29 +69,31 @@ function create(req, res) {
 
     Post.create({
         content: content,
-        userId: req.body.user.id
-    }).then(function (post) {
+        userId: req.user.id
+    }).then((post) => {
         if (hashtagsArray && hashtagsArray.length > 0) {
             var counter = 0;
 
-            hashtagsArray.forEach(function (title) {
+            hashtagsArray.forEach((title) => {
                 Hashtag.findOrCreate({
                     where: {
                         title: title
                     }
-                }).spread(function (hashtag, created) {
+                }).spread((hashtag, created) => {
                     post.addHashtag(hashtag);
                     counter++;
 
                     if (counter == hashtagsArray.length) {
                         res.status(201).send(post).end();
                     }
-                }).catch(function (err) {
+                }).catch((err) => {
                     res.status(500).send({ error: err }).end();
                 });
             });
         }
-    }).catch(function (err) {
+
+        res.status(201).send(post).end();
+    }).catch((err) => {
         res.status(500).send({ error: err }).end();
     });
 }

@@ -4,7 +4,8 @@ module.exports = function strategySetup(BearerStrategy, next) {
     return new BearerStrategy(function (token, callback) {
         User.findOne({
             where: {
-                token: token
+                token: token,
+                activated: true
             }
         }).then(function (user) {
             if (!user) {

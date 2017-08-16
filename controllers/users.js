@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt-nodejs');
 var Session = require('../models/main')('session');
 var parallel = require('async/parallel');
 var fs = require('fs');
+
 let keys;
 fs.readFile('keys.json', (err, data) => {
     if (err) throw err;
@@ -93,18 +94,22 @@ function updateWrapper(req, res) {
  if the key given in the body of the request is the same as the key
  in the database then the user is activated
  */
-// POST /verify
+// POST /users/:id/verify
 function verify(req, res) {
-    if (req.user.key === req.body.key) {
-        req.user.update({
-            activated: true
-        }).then(function () {
-            res.status(200).end();
-        }).catch(function (err) {
-            res.status(500).send({ error: err }).end();
-        })
+    if (keys.indexOf(req.body.key) !== -1) {
+        User.findById(req.params.id).then((user) => {
+            user.update({
+                activated: true
+            }).then(() => {
+                res.status(200).send({ msg: 'User verified successfully' }).end();
+            }).catch((err) => {
+                res.status(500).send({ error: err }).end();
+            });
+        }).catch((err) => {
+            res.status(401).send({ error: 'User not found' }).end();
+        });
     } else {
-        res.status(400).send({ error: "Invalid Key" }).end();
+        res.status(401).send({ error: 'Key not found' }).end();
     }
 }
 
@@ -221,9 +226,7 @@ var addSession = function (req, res) {
             } else {
                 res.status(400).send({ error: "No enough seats" }).end();
             }
-
         });
-
     })
 };
 
@@ -262,7 +265,6 @@ var removeSession = function (req, res) {
 
 // GET /users/:id/sessions
 var getSessions = function (req, res) {
-    console.log(req.params);
     User.findById(req.params.id).then((user) => {
         user.getSessions().then((sessions) => {
             res.status(200).send(sessions).end();
@@ -278,22 +280,16 @@ var getSessions = function (req, res) {
 
 //POST /signup {alias: 'alias', name: 'bebo', email: 'b@b.com', password:'0931209'}
 var signup = function (req, res) {
-    if(keys.indexOf(req.body.key) != -1) {
-        User.create({
-            alias: req.body.alias,
-            password: req.body.password,
-            name: req.body.name,
-            email: req.body.email
-        }).then(function (createdUser) {
-            res.status(200).send({
-                user: createdUser
-            }).end();
-        }).catch((err) => {
-            res.status(500).send({error: err}).end();
-        });
-    } else {
-        res.status(401).send({error: 'Key not found'}).end();
-    }
+    User.create({
+        alias: req.body.alias,
+        password: req.body.password,
+        name: req.body.name,
+        email: req.body.email
+    }).then(function (createdUser) {
+        res.status(200).send({ user: createdUser }).end();
+    }).catch((err) => {
+        res.status(500).send({ error: err }).end();
+    });
 };
 
 module.exports = {
