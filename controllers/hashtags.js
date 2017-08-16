@@ -41,7 +41,10 @@ function show(req, res) {
             title: title
         },
         include: [{
-            model: Post, as: "posts"
+            model: Post, as: "posts",
+            include: [{
+                model: User
+            }]
         }]
     }).then(function (hashtag) {
         if (!hashtag) res.status(404).end();
