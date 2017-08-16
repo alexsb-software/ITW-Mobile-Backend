@@ -96,7 +96,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Vodafone Talk',
+            name: 'Wireless Communications (Vodafone)',
             start: '11:30',
             end: '12:15',
             day: day1,
@@ -106,7 +106,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Break 1',
+            name: 'Break',
             start: '12:15',
             end: '12:45',
             day: day1,
@@ -126,13 +126,13 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: '3D Printing (Biomedical Applications)',
+            name: 'NTRA (Communications in Egypt)',
             start: '13:30',
             end: '14:15',
             day: day1,
             type: lecture_type,
             place: great_hall_place,
-            categories: ['Electronics']
+            categories: ['General', 'Communications']
         });
 
         createSession({
@@ -156,7 +156,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Break 2 (Catering)',
+            name: 'Break',
             start: '15:45',
             end: '16:15',
             day: day1,
@@ -166,7 +166,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Computer Vision',
+            name: 'Cloud Computing',
             start: '16:20',
             end: '17:00',
             day: day1,
@@ -176,7 +176,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Robotics Market / Smart Material',
+            name: 'Robotics Market',
             start: '17:10',
             end: '17:50',
             day: day1,
@@ -208,6 +208,17 @@ var seedSessions = function () {
 
         createSession({
             name: 'Game Development Workshop',
+            start: '12:45',
+            end: '13:25',
+            day: day1,
+            type: workshop_type,
+            place: delegates_hall_place,
+            number_of_seats: 20,
+            categories: ['Computer']
+        });
+
+        createSession({
+            name: 'Game Development Workshop',
             start: '13:30',
             end: '14:15',
             day: day1,
@@ -229,7 +240,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Game Development 2',
+            name: 'Game Development Workshop',
             start: '14:45',
             end: '15:45',
             day: day1,
@@ -251,7 +262,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Aerodynamics/ROV Workshop',
+            name: 'Aerodynamics Workshop',
             start: '16:20',
             end: '17:00',
             day: day1,
@@ -262,7 +273,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Cryptography Workshop 2',
+            name: 'Cryptography Workshop',
             start: '17:10',
             end: '17:50',
             day: day1,
@@ -296,6 +307,8 @@ var seedSessions = function () {
             categories: ['Computer']
         });
 
+        // TODO: check schedule after hybrid cars session to ROS/RTOS
+
         createSession({
             name: 'Hybrid Cars',
             start: '10:45',
@@ -303,10 +316,21 @@ var seedSessions = function () {
             day: day2,
             type: lecture_type,
             place: great_hall_place,
-            categories: []
+            categories: ['Mechanical']
         });
 
-        // TODO: check schedule after hybrid cars session to ROS/RTOS
+        createSession({
+            name: 'Smart Cities',
+            start: '10:30',
+            end: '11:15',
+            day: day2,
+            type: lecture_type,
+            place: great_hall_place,
+            categories: ['Communications', 'Electronics']
+        });
+
+
+        // --------------------------
 
         createSession({
             name: 'ROS / RTOS',
@@ -319,7 +343,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Break 3',
+            name: 'Break',
             start: '12:00',
             end: '12:30',
             day: day2,
@@ -339,27 +363,27 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Energy Automation',
+            name: 'ITIDA',
             start: '13:30',
             end: '14:10',
             day: day2,
             type: lecture_type,
             place: great_hall_place,
-            categories: ['Power (Electrical)']
+            categories: ['General']
         });
 
         createSession({
-            name: 'Voice Search and Artificial Intelligence / Brain Chips',
+            name: 'Internet of Things',
             start: '14:30',
             end: '15:15',
             day: day2,
             type: lecture_type,
             place: great_hall_place,
-            categories: ['Computer']
+            categories: ['Computer', 'Communications', 'Electronics']
         });
 
         createSession({
-            name: 'Break 4 (Catering)',
+            name: 'Break',
             start: '15:15',
             end: '15:40',
             day: day2,
@@ -379,13 +403,13 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Embedded Linux',
+            name: 'Embedded system in automotive',
             start: '16:30',
             end: '17:15',
             day: day2,
             type: lecture_type,
             place: great_hall_place,
-            categories: ['Computer']
+            categories: ['Computer', 'Electronics']
         });
 
         createSession({
@@ -412,22 +436,22 @@ var seedSessions = function () {
 
         createSession({
             name: 'ROV Gallery',
-            start: '',
-            end: '',
+            start: '10:30',
+            end: '11:15',
             day: day2,
             type: gallery_type,
             place: delegates_hall_place,
-            categories: ['Power (Electrical), Mechanical']
+            categories: ['Power (Electrical), Mechanical', 'Electronics']
         });
 
         createSession({
-            name: 'ROV Gallery 2',
+            name: 'ROV Gallery',
             start: '11:20',
             end: '12:00',
             day: day2,
             type: gallery_type,
             place: delegates_hall_place,
-            categories: ['Power (Electrical), Mechanical']
+            categories: ['Power (Electrical), Mechanical', 'Electronics']
         });
 
         createSession({
@@ -463,7 +487,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'IOT Gallery 2',
+            name: 'IOT Gallery',
             start: '16:30',
             end: '17:15',
             day: day2,
