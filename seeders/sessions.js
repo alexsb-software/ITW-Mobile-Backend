@@ -441,6 +441,7 @@ var seedSessions = function () {
             day: day2,
             type: gallery_type,
             place: delegates_hall_place,
+            number_of_seats: 20,
             categories: ['Power (Electrical), Mechanical', 'Electronics']
         });
 
@@ -451,6 +452,7 @@ var seedSessions = function () {
             day: day2,
             type: gallery_type,
             place: delegates_hall_place,
+            number_of_seats: 20,
             categories: ['Power (Electrical), Mechanical', 'Electronics']
         });
 
@@ -472,6 +474,7 @@ var seedSessions = function () {
             day: day2,
             type: gallery_type,
             place: delegates_hall_place,
+            number_of_seats: 20,
             categories: ['Computer', 'Communications']
         });
 
@@ -493,6 +496,7 @@ var seedSessions = function () {
             day: day2,
             type: gallery_type,
             place: delegates_hall_place,
+            number_of_seats: 20,
             categories: ['Computer', 'Communications']
         });
 

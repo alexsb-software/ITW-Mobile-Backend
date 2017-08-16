@@ -1,3 +1,5 @@
+'use strict';
+
 var User = require('../models/main')('user');
 var tokenGenerator = require('../helpers/auth_token');
 const bcrypt = require('bcrypt-nodejs');
@@ -207,11 +209,18 @@ var addSession = function (req, res) {
         if (err) res.status(500).send({ error: err }).end();
         var user = results[0];
         var session = results[1];
+        var session_types = new Set();
 
         user.getSessions().then((sessions) => {
             sessions.forEach((element) => {
-                if (session.id == element.id) {
+                session_types.add(element.type);
+            })
+
+            sessions.forEach((element) => {
+                if (element.id == session.id) {
                     res.status(400).send({ error: "User already reserved this session" }).end();
+                } else if (session_types.has(session.type) && session.type == "gallery") {
+                    res.status(500).send({ error: "Can't reserve more slots of this type" }).end();
                 }
             }, this);
 

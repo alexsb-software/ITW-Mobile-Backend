@@ -38,18 +38,17 @@ var seed = function () {
         // }).catch(console.log);
 
         // // seed categories
-        // categoriesSeeder();
+        categoriesSeeder();
 
         // // seed sessions
-        // sessionsSeeder();
+        sessionsSeeder();
 
         // // seed speakers
-        // speakersSeeder();
-
-        // // seed sponsors
-
+        speakersSeeder();
 
     }).catch(console.log);
 };
+
+seed();
 
 module.exports = seed;

@@ -83,8 +83,6 @@ app.get('/admin/notify', function (req, res) {
     res.status(200).sendFile(__dirname + "/public/notifications.html");
 })
 
-
-
 app.get('*', function (req, res) {
     res.status(404).end();
     // Add 404 page if applicable

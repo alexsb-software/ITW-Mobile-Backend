@@ -4,11 +4,34 @@ var seedSpeakers = function () {
     const Speaker = require('../models/main')('speaker');
     const Session = require('../models/main')('session');
 
-    // force: true here is only in the development env change in config.js
-    Speaker.create({
-        name: 'Maged Farrag',
-        position: 'Digital Media Evangelist',
-        bio: `Maged Farrag is a digital media evangelist, founded his first company Mega Media in 1994 to become Egypt’s leading multimedia service provider. 
+    // Day 1
+    {
+        Speaker.create({
+            name: 'Ravi Margasahayam',
+            position: 'International Public Speaker, NASA',
+            bio: `Dr. Ravi was the Co-Chair Ground Safety Review Panel (GSRP) - International Space Station (NASA). <br> <br>
+            Now Dr. Ravi works as the V.I.P. Tour Guide & International Public Speaker at NASA.`
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%How to make your journey through ITW useful%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+
+            Session.findOne({ where: { name: { $like: '%Journey to Mars%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+
+            Session.findOne({ where: { name: { $like: '%Shaping Today\'s Youth Into Tomorrow\'s Leaders%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Maged Farrag',
+            position: 'Digital Media Evangelist',
+            bio: `Maged Farrag is a digital media evangelist, founded his first company Mega Media in 1994 to become Egypt’s leading multimedia service provider. 
             Being the first to introduce touch screens and interactive multimedia solutions to the Egyptian market, his work extended to cover innovative 
             use of technology in advertising, communication and cultural heritage documentation. He has received numerous advertising and content awards. <br> <br>
 
@@ -20,17 +43,94 @@ var seedSpeakers = function () {
             He has published many papers and has made a lot of contributions to numerous international conferences focusing on using technology in cultural 
             heritage documentation. He's also a founding member of the world association for protection of tangible cultural heritage during times of armed 
             conflict; WATCH. He's currently the president of the e-games work-group in the Chamber of Information Technology and Telecommunications-CIT.`
-    }).then(function (speaker) {
-        Session.findOne({ where: { name: { $like: '%Augmented Reality (5D)%' } } })
-            .then(function (session) {
-                speaker.addSession(session);
-            });
-    });
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%Augmented Reality (5D)%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
 
-    Speaker.create({
-        name: 'Shady ElSafty',
-        position: 'Regional Quality Manager',
-        bio: `Mr. Shady is currently working as Regional Quality Manager for General Motors North Africa, based in Cairo, Egypt. 
+        Speaker.create({
+            name: 'Ahmed Moharm',
+            bio: `Mohram holds more than 5 years of experience in various fields such as: teaching and research. In addition to consulting in structural 
+            engineering with major projects in Middle-East, Far East and Gulf Area. <br> <br>
+
+            Ahmed was also able to attain high professional experience and extensive knowledge in the fields of Finite Element Modelling, 
+            Structural analysis, and Design. <br> <br>
+            
+            He has notably been very active in his career as a Structural Engineer for FACB for nearly a year while being a research 
+            assistant in the Faculty of Engineering, Alexandria University. <br> <br>
+
+            Being a teacher assistant, Mohram was able to leave a mark in every place he worked in, such as JAMES CUBBIT & PARTENERS and AAST. <br> <br>
+
+            Mohram graduated from the Faculty of Engineering, Alexandria University, with a bachelor degree in Civil Engineering. 
+            He pursued his Masters degree late on in September 2012.`
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%BIM Civil%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Wessam Sedik'
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%NTRA (Communications in Egypt)%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Ayman Ragab',
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%NTRA Talk%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Abdelrahman Samir',
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%Cloud Computing%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Pegasus',
+            bio: `Pegasus team is one of the scientific teams in Faculty of Engineering, Alexandria University, in addition to being the representative 
+            team of Egypt and the Arab world in SAE Aerodesign West Competition, in which the team ranked ninth out of 34 participating teams. <br> <br>
+
+            Pegasus team’s main interest is Aviation Science in all its scientific and research fields. <br> <br>
+
+            Their vision is continuity and sustainability in order to establish a stable scientific base in Aviation Science.`
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: 'Aerodynamics Workshop' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+    }
+
+    // Day 2
+
+    {
+        Speaker.create({
+            name: 'Moatsem',
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%Chat Bots%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Shady ElSafty',
+            position: 'Regional Quality Manager',
+            bio: `Mr. Shady is currently working as Regional Quality Manager for General Motors North Africa, based in Cairo, Egypt. 
             He is ASQ senior member who is volunteering to support several ASQ activities as the Regional Director of ASQ Quality Management Division (QMD) in 
             the Middle East since 2013, as well as a reviewer of technical paper in ASQ Quality Conferences on 2015 and 2016. <br> <br>
 
@@ -44,16 +144,43 @@ var seedSpeakers = function () {
             El Safty earned a Bachelor Degree in Mechanical Engineering and Master Degree in Business Administration. 
             Moreover, he is a certified Six-sigma Master Black Belt from Arizona State University (USA-2012), Shainin Red X Master (Brazil-2007), 
             and Certified Lean Manufacturing Coach from. Sungkynkwan University (South Korea-2010).`
-    }).then(function (speaker) {
-        Session.findOne({ where: { name: { $like: '%Hybrid Cars%' } } })
-            .then(function (session) {
-                speaker.addSession(session);
-            });
-    });
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%Hybrid Cars%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
 
-    Speaker.create({
-        name: 'Vortex',
-        bio: `Driven by the dream of winning an ROV competition, Vortex was founded back in 2015 by 8 electromechanical engineers in Alexandria University. <br> <br>
+        Speaker.create({
+            name: 'Ahmed Abdelaziz',
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%Smart Cities%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Hossam Fahmy',
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%Internet of Things%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Mohamed Farahat',
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%Smart Materials%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+
+        Speaker.create({
+            name: 'Vortex',
+            bio: `Driven by the dream of winning an ROV competition, Vortex was founded back in 2015 by 8 electromechanical engineers in Alexandria University. <br> <br>
 
             Coming in third place  in the international ROV competition organized by MATE organization in United States of America this year, 
             they were able to break both the Egyptian and Arabic records. Vortex rapidly succeeded not only in ROV competitions but also in other national forums. <br> <br>
@@ -62,27 +189,13 @@ var seedSpeakers = function () {
             of  EED(Egyptian Engineering Day) -annually organized by IEEE Egypt-Vortex have set their sails towards starting  their own startup in the 
             ROV industry in Egypt, plus they’re working on  utilizing their technical knowledge and experience to enrich the Egyptian market in the marine field.
 `
-    }).then(function (speaker) {
-        Session.findOne({ where: { name: { $like: '%ROV Gallery%' } } })
-            .then(function (session) {
-                speaker.addSession(session);
-            });
-    });
-
-    Speaker.create({
-        name: 'Mohamed Abo ELHaggag',
-        bio: `Mohammad joined Fab Lab Egypt's team as a web developer before becoming head of I.T. <br> <br>
-                After studying digital fabrication at "Fab Academy" -where he learned how can it be used to bring ideas to reality- he participated in a 
-                research in Faculty of Medicine, Kasr El-Einy which focused on preoperative surgical planning in which 3D printed models of the patient's anatomy 
-                were used to plan and have a better understanding of operations beforehand. <br> <br>
-                This research then evolved into a startup called "IMHOTEP Medical Solutions", which provides aiding tools for surgeons to perform operations 
-                with better results.`
-    }).then(function (speaker) {
-        Session.findOne({ where: { name: { $like: '%3D Printing (Biomedical Applications)%' } } })
-            .then(function (session) {
-                speaker.addSession(session);
-            });
-    });
+        }).then(function (speaker) {
+            Session.findOne({ where: { name: { $like: '%ROV Gallery%' } } })
+                .then(function (session) {
+                    speaker.addSession(session);
+                });
+        });
+    }
 
     Speaker.create({
         name: '5dVR',
@@ -109,54 +222,16 @@ var seedSpeakers = function () {
         // });
     });
 
-    Speaker.create({
-        name: 'Ahmed Moharm',
-        bio: `Mohram holds more than 5 years of experience in various fields such as: teaching and research. In addition to consulting in structural 
-            engineering with major projects in Middle-East, Far East and Gulf Area. <br> <br>
-
-            Ahmed was also able to attain high professional experience and extensive knowledge in the fields of Finite Element Modelling, 
-            Structural analysis, and Design. <br> <br>
-            
-            He has notably been very active in his career as a Structural Engineer for FACB for nearly a year while being a research 
-            assistant in the Faculty of Engineering, Alexandria University. <br> <br>
-
-            Being a teacher assistant, Mohram was able to leave a mark in every place he worked in, such as JAMES CUBBIT & PARTENERS and AAST. <br> <br>
-
-            Mohram graduated from the Faculty of Engineering, Alexandria University, with a bachelor degree in Civil Engineering. 
-            He pursued his Masters degree late on in September 2012.`
-    }).then(function (speaker) {
-        Session.findOne({ where: { name: { $like: 'BIM Civil' } } })
-            .then(function (session) {
-                speaker.addSession(session);
-            });
-    });
-
-    Speaker.create({
-        name: 'Pegasus',
-        bio: `Pegasus team is one of the scientific teams in Faculty of Engineering, Alexandria University, in addition to being the representative 
-            team of Egypt and the Arab world in SAE Aerodesign West Competition, in which the team ranked ninth out of 34 participating teams. <br> <br>
-
-            Pegasus team’s main interest is Aviation Science in all its scientific and research fields. <br> <br>
-
-            Their vision is continuity and sustainability in order to establish a stable scientific base in Aviation Science.`
-    }).then(function (speaker) {
-        Session.findOne({ where: { name: { $like: 'Aerodynamics/ROV Workshop' } } })
-            .then(function (session) {
-                speaker.addSession(session);
-            });
-    });
-
     // Speaker.create({
     //     name: '',
+    //     position: '',
     //     bio: ``
     // }).then(function (speaker) {
-    //     Session.findOne({ where: { name: '' } })
+    //     Session.findOne({ where: { name: { $like: '%%' } } })
     //         .then(function (session) {
     //             speaker.addSession(session);
     //         });
     // });
-
-    // seed sponsors
 
 };
 
