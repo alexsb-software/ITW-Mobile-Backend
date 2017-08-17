@@ -4,14 +4,8 @@ var User = require('../models/main')('user');
 var tokenGenerator = require('../helpers/auth_token');
 const bcrypt = require('bcrypt-nodejs');
 var Session = require('../models/main')('session');
+var Key = require('../models/main')('key');
 var parallel = require('async/parallel');
-var fs = require('fs');
-
-let keys;
-fs.readFile('keys.json', (err, data) => {
-    if (err) throw err;
-    keys = JSON.parse(data);
-});
 
 // TODO: remove
 // for debugging purpose only
@@ -98,21 +92,26 @@ function updateWrapper(req, res) {
  */
 // POST /users/:id/verify
 function verify(req, res) {
-    if (keys.indexOf(req.body.key) !== -1) {
+    Key.findOne({
+        where: { value: req.body.key }
+    }).then((key) => {
+        console.log("\n\n" + JSON.stringify(key) + "\n\n");
         User.findById(req.params.id).then((user) => {
             user.update({
                 activated: true
             }).then(() => {
-                res.status(200).send({ msg: 'User verified successfully' }).end();
+                Key.destroy({ where: { value: key.value } }).then(() => {
+                    res.status(200).send({ msg: 'User verified successfully' }).end();
+                });
             }).catch((err) => {
                 res.status(500).send({ error: err }).end();
             });
         }).catch((err) => {
             res.status(401).send({ error: 'User not found' }).end();
         });
-    } else {
+    }).catch((err) => {
         res.status(401).send({ error: 'Key not found' }).end();
-    }
+    });
 }
 
 

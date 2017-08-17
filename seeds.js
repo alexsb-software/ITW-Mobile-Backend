@@ -1,6 +1,7 @@
 const categoriesSeeder = require('./seeders/categories');
 const sessionsSeeder = require('./seeders/sessions');
 const speakersSeeder = require('./seeders/speakers');
+const keysSeeder = require('./seeders/keys');
 
 var seed = function () {
 
@@ -37,14 +38,17 @@ var seed = function () {
         //     })
         // }).catch(console.log);
 
-        // // seed categories
-        categoriesSeeder();
+        // seed categories
+        // categoriesSeeder();
 
-        // // seed sessions
-        sessionsSeeder();
+        // seed sessions
+        // sessionsSeeder();
 
-        // // seed speakers
-        speakersSeeder();
+        // seed speakers
+        // speakersSeeder();
+
+        // seed keys
+        // keysSeeder();
 
     }).catch(console.log);
 };

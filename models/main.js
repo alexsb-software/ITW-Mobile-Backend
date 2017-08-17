@@ -31,6 +31,7 @@ var CategorySession = connection.import(__dirname + '/category_session.js');
 var Speaker = connection.import(__dirname + '/speaker.js');
 var SessionSpeaker = connection.import(__dirname + '/session_speaker.js');
 var UserSession = connection.import(__dirname + '/user_session.js');
+var Key = connection.import(__dirname + '/key.js');
 
 
 // if there's any relations put it here
@@ -60,7 +61,8 @@ var modules = {
     hashtag: Hashtag,
     category: Category,
     session: Session,
-    speaker: Speaker
+    speaker: Speaker,
+    key: Key
 };
 
 module.exports = function (name) {
