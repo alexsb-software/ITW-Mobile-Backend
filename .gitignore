@@ -5,3 +5,4 @@ build/Release
 .idea
 .env
 keys.json
+seeders/keys.js
