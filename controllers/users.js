@@ -30,7 +30,7 @@ function index(req, res) {
     }).then(function (users) {
         res.status(200).send(users).end();
     }).catch(function (err) {
-        res.status(500).send({ error: err }).end();
+        res.status(500).send({error: err}).end();
     })
 }
 
@@ -53,7 +53,7 @@ function show(req, res) {
             res.status(200).send(user).end();
         }
     }).catch(function (err) {
-        res.status(500).send({ error: err }).end();
+        res.status(500).send({error: err}).end();
     })
 }
 
@@ -74,7 +74,7 @@ function update(req, res) {
 
         res.status(200).send(user).end();
     }).catch(function (err) {
-        res.status(500).send({ error: err }).end();
+        res.status(500).send({error: err}).end();
     })
 }
 
@@ -103,15 +103,15 @@ function verify(req, res) {
             user.update({
                 activated: true
             }).then(() => {
-                res.status(200).send({ msg: 'User verified successfully' }).end();
+                res.status(200).send({msg: 'User verified successfully'}).end();
             }).catch((err) => {
-                res.status(500).send({ error: err }).end();
+                res.status(500).send({error: err}).end();
             });
         }).catch((err) => {
-            res.status(401).send({ error: 'User not found' }).end();
+            res.status(401).send({error: 'User not found'}).end();
         });
     } else {
-        res.status(401).send({ error: 'Key not found' }).end();
+        res.status(401).send({error: 'Key not found'}).end();
     }
 }
 
@@ -129,15 +129,15 @@ function logout(req, res) {
         User.update({
             token: null
         }, {
-                where: {
-                    token: token
-                }
-            }).then(function () {
-                res.status(200).end();
-            }).catch(function (err) {
-                // 500: internal server error
-                res.status(500).send({ error: err }).end();
-            });
+            where: {
+                token: token
+            }
+        }).then(function () {
+            res.status(200).end();
+        }).catch(function (err) {
+            // 500: internal server error
+            res.status(500).send({error: err}).end();
+        });
     }
 }
 
@@ -206,7 +206,7 @@ var addSession = function (req, res) {
             callback(null, session);
         }).catch((err) => callback(err, null));
     }], function (err, results) {
-        if (err) res.status(500).send({ error: err }).end();
+        if (err) res.status(500).send({error: err}).end();
         var user = results[0];
         var session = results[1];
         var session_types = new Set();
@@ -218,9 +218,11 @@ var addSession = function (req, res) {
 
             sessions.forEach((element) => {
                 if (element.id == session.id) {
-                    res.status(400).send({ error: "User already reserved this session" }).end();
-                } else if (session_types.has(session.type) && session.type == "gallery") {
-                    res.status(500).send({ error: "Can't reserve more slots of this type" }).end();
+                    res.status(400).send({error: "User already reserved this session"}).end();
+                    next();
+                } else if (session_types.has(session.type)) {
+                    res.status(500).send({error: "Can't reserve more slots of this type"}).end();
+                    next();
                 }
             }, this);
 
@@ -228,13 +230,15 @@ var addSession = function (req, res) {
                 user.addSession(session).then(() => {
                     session.number_of_seats -= 1;
                     session.save();
-                    res.status(200).send({ message: "Session reserved successfully" }).end();
+                    res.status(200).send({message: "Session reserved successfully"}).end();
                 }).catch((err) => {
-                    res.status(500).send({ error: err }).end();
+                    res.status(500).send({error: err}).end();
                 });
             } else {
-                res.status(400).send({ error: "No enough seats" }).end();
+                res.status(400).send({error: "No enough seats"}).end();
             }
+
+
         });
     })
 };
@@ -259,7 +263,7 @@ var removeSession = function (req, res) {
             callback(null, session);
         }).catch((err) => callback(err, null));
     }], function (err, results) {
-        if (err) res.status(500).send({ error: err }).end();
+        if (err) res.status(500).send({error: err}).end();
         var user = results[0];
         var session = results[1];
         user.removeSession(session).then(() => {
@@ -267,7 +271,7 @@ var removeSession = function (req, res) {
             session.save();
             res.status(200).end();
         }).catch((err) => {
-            res.status(500).send({ error: err }).end();
+            res.status(500).send({error: err}).end();
         });
     })
 };
@@ -279,11 +283,11 @@ var getSessions = function (req, res) {
             res.status(200).send(sessions).end();
         }).catch((err) => {
             console.log(err);
-            res.status(404).send({ error: "No sessions reserved." }).end();
+            res.status(404).send({error: "No sessions reserved."}).end();
         });
     }).catch((err) => {
         console.log(err);
-        res.status(404).send({ error: "User not found" }).end();
+        res.status(404).send({error: "User not found"}).end();
     });
 };
 
@@ -295,9 +299,9 @@ var signup = function (req, res) {
         name: req.body.name,
         email: req.body.email
     }).then(function (createdUser) {
-        res.status(200).send({ user: createdUser }).end();
+        res.status(200).send({user: createdUser}).end();
     }).catch((err) => {
-        res.status(500).send({ error: err }).end();
+        res.status(500).send({error: err}).end();
     });
 };
 
