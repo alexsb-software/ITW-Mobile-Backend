@@ -28,7 +28,7 @@ module.exports = function (sequalize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        report_link: {
+        reservation_type: {
             type: DataTypes.STRING
         },
         number_of_seats: {
@@ -36,10 +36,6 @@ module.exports = function (sequalize, DataTypes) {
         },
         place: {
             type: DataTypes.STRING
-        },
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: true
         }
     }, {
             hooks: {

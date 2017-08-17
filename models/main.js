@@ -21,12 +21,10 @@ if (process.env.DATABASE_URL) {
         config.database.password, config.database.config);
 }
 
-var Movies = connection.import(__dirname + '/movies.js');
 var User = connection.import(__dirname + '/user.js');
 var Post = connection.import(__dirname + '/post.js');
 var Hashtag = connection.import(__dirname + '/hashtag.js');
 var HashtagPost = connection.import(__dirname + '/hashtag_post.js');
-var Sponsor = connection.import(__dirname + '/sponsor.js');
 var Category = connection.import(__dirname + '/category.js');
 var Session = connection.import(__dirname + '/session.js');
 var CategorySession = connection.import(__dirname + '/category_session.js');
@@ -57,11 +55,9 @@ Session.belongsToMany(User, { through: UserSession, constraints: false });
 // setup the array of modules
 var modules = {
     connection: connection,
-    movies: Movies,
     user: User,
     post: Post,
     hashtag: Hashtag,
-    sponsor: Sponsor,
     category: Category,
     session: Session,
     speaker: Speaker

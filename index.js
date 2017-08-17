@@ -14,12 +14,10 @@ const fs = require('fs');
 
 
 // Routers importing
-const moviesRouter = require('./routes/movies');
 const usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
 const postsRouter = require('./routes/posts');
 const hashtagRouter = require('./routes/hashtags');
-const sponsorsRouter = require('./routes/sponsors');
 const categoriesRouter = require('./routes/categories');
 const sessionsRouter = require('./routes/sessions')
 const speakersRouter = require('./routes/speakers');
@@ -59,7 +57,6 @@ app.use(function (req, res, next) {
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/hashtags', hashtagRouter);
-app.use('/sponsors', sponsorsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/sessions', sessionsRouter);
 app.use('/speakers', speakersRouter);

@@ -4,18 +4,6 @@ module.exports = function (sequalize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        email: {
-            type: DataTypes.STRING,
-            unique: true
-        },
-        phone: {
-            type: DataTypes.STRING,
-            unique: true
-        },
-        linkedin: {
-            type: DataTypes.STRING,
-            unique: true
-        }, 
         bio: {
             type: DataTypes.TEXT
         },
