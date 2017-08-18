@@ -13,7 +13,6 @@ describe("Users Routers Test", function () {
 
     before(function (done) {
         User.create({
-            alias: 'test2',
             password: '123456789',
             name: 'test_name',
             email: 'test@test.com',
@@ -25,13 +24,13 @@ describe("Users Routers Test", function () {
         }).catch(done);
     });
 
-    it("should return the user when GET /show/:alias", function (done) {
-        agent.get('/users/' + user.alias)
+    it("should return the user when GET /show/:name", function (done) {
+        agent.get('/users/' + user.name)
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
                 if (err) return done(err);
-                res.body.alias.should.equal(user.alias);
+                res.body.name.should.equal(user.name);
                 ('email' in res.body).should.be.true();
                 done()
             });
@@ -49,7 +48,7 @@ describe("Users Routers Test", function () {
                 if (err) return done(err);
                 User.findOne({
                     where: {
-                        alias: "test2"
+                        name: "test_name"
                     }
                 }).then(user => {
                     res.get('Authorization').should.equal("Bearer " + user.token);
@@ -85,7 +84,7 @@ describe("Users Routers Test", function () {
     });
 
     it("Should update the user if authorized", function (done) {
-        agent.put('/users/' + user.alias)
+        agent.put('/users/' + user.name)
             .set('Authorization', 'Bearer ' + token)
             .send({
                 name: "new_name",
@@ -94,7 +93,7 @@ describe("Users Routers Test", function () {
                 if (err) return done(err);
                 User.findOne({
                     where: {
-                        alias: user.alias
+                        name: user.name
                     }
                 }).then(function (user) {
                     (user.name == "new_name").should.equal(true);
@@ -114,7 +113,7 @@ describe("Users Routers Test", function () {
                 if (err) return done(err);
                 User.findOne({
                     where: {
-                        alias: user.alias
+                        name: user.name
                     }
                 }).then(function (user) {
                     (user.activated == true).should.equal(false);
@@ -134,7 +133,7 @@ describe("Users Routers Test", function () {
                 if (err) return done(err);
                 User.findOne({
                     where: {
-                        alias: user.alias
+                        name: user.name
                     }
                 }).then(function (user) {
                     (user.activated == true).should.equal(true);
@@ -153,7 +152,7 @@ describe("Users Routers Test", function () {
             .end(function (err, res) {
                 User.findOne({
                     where: {
-                        alias: "test2"
+                        name: "test_name"
                     }
                 }).then(user => {
                     new_token = user.token;

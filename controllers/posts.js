@@ -38,7 +38,7 @@ function show(req, res) {
         {
             model: User,
             as: "user",
-            attributes: ["id", "alias", "email"],
+            attributes: ["id", "name", "email"],
             through: { attributes: [] }
         }],
         attributes: ['id', 'content', 'userId']

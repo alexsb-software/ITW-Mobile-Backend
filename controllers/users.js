@@ -28,17 +28,17 @@ function index(req, res) {
     })
 }
 
-// GET /show/:alias gets the information of a user
+// GET /show/:name gets the information of a user
 function show(req, res) {
     User.findOne({
         where: {
-            alias: req.params.alias
+            name: req.params.name
         },
         include: [{
             model: Session, as: "sessions",
             attributes: ["id", "name", "type"]
         }],
-        attributes: ['id', 'alias', 'email', 'collage', 'department']
+        attributes: ['id', 'name', 'email', 'collage', 'department']
     }).then(function (user) {
         if (!user) {
             // user not found send 404
@@ -55,14 +55,14 @@ function show(req, res) {
  This function is called from updateWrapper when the authorization
  if complete to edit the user
  */
-// PUT /users/:alias
+// PUT /users/:name
 function update(req, res) {
     User.update(req.body, {
         where: {
-            alias: req.params.alias
+            name: req.params.name
         },
         // permit only the following fields to be updated
-        fields: ['alias', 'email', 'collage', 'department', 'name']
+        fields: ['name', 'email', 'collage', 'department', 'name']
     }).then(function (user) {
         if (!user) res.status(404).end();
 
@@ -77,9 +77,9 @@ function update(req, res) {
  key of the user to edit
  TODO: Add admin edit
  */
-// PUT /users/:alias
+// PUT /users/:name
 function updateWrapper(req, res) {
-    if (!req.user || !req.params.alias || req.user.alias != req.params.alias) {
+    if (!req.user || !req.params.name || req.user.name != req.params.name) {
         res.status(401).end();
     } else {
         return update(req, res);
@@ -140,14 +140,14 @@ function logout(req, res) {
     }
 }
 
-// POST /login {alias: user_alias, password: user_password} logs in a user
+// POST /login {name: user_name, password: user_password} logs in a user
 // if information is valid
 function login(req, res) {
 
     var email = req.body.email;
     var password = req.body.password;
     var token = null;
-    // find the user with the alias and password
+    // find the user with the name and password
     User.findOne({
         where: {
             email: email,
@@ -305,10 +305,9 @@ var getSessions = function (req, res) {
     });
 };
 
-//POST /signup {alias: 'alias', name: 'bebo', email: 'b@b.com', password:'0931209'}
+//POST /signup {name: 'bebo', email: 'b@b.com', password:'0931209'}
 var signup = function (req, res) {
     User.create({
-        alias: req.body.alias,
         password: req.body.password,
         name: req.body.name,
         email: req.body.email

@@ -19,7 +19,6 @@ describe('Sessions CRUD test', function () {
 
     before(function (done) {
         User.create({
-            alias: 'session-test',
             password: '123456789',
             name: 'test_name',
             email: 'testpost@test.com',

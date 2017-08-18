@@ -8,11 +8,11 @@ ENDPOINTS
 ----
     GET /users/ (200)=> returns a list of all users
 
-    GET /users/:alias (200) => returns the information of the specified user
+    GET /users/:name (200) => returns the information of the specified user
 
     POST /users/login (200)
         Request Body = {
-            alias: ..
+            name: ..
             password: ..
         }
     => logs the user in if the information provided is valid or else a 400 will be initiated
@@ -22,10 +22,10 @@ ENDPOINTS
         Authorization Header = 'Bearer Auth-key'
     => the user will be logged out and a new authentication key will be created making the old one invalid.
 
-    PUT /users/:alias (200)
+    PUT /users/:name (200)
         Authorization Header = 'Bearer Auth-key'
     => if the auth key matches that of the user being updated the fields permitted will be updated with the information given in the request body
-    => fileds permitted: alias, name, email, collage, and department.
+    => fileds permitted: name, name, email, collage, and department.
 
     POST /users/verify (200)
         Authorization Header = 'Bearer Auth-key'
@@ -39,7 +39,6 @@ ENDPOINTS
 -------
     POST /admin/create/user (201)
         Request Body = {
-            alias: user alias
             name: user full name
             password: password unencreapted
             email: da
@@ -52,7 +51,7 @@ ENDPOINTS
         Request body =  {
         id: user's - that's to be deleted -  id 
         }
-    => deletes the user denoted by this alias
+    => deletes the user denoted by this name
 
     POST /admin/update/key (200)
         Request body = {

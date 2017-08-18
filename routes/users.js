@@ -9,7 +9,7 @@ router.use(function (req, res, next) {
 });
 
 // router.get('/', usersController.index);
-// router.get('/:alias', usersController.show);
+// router.get('/:name', usersController.show);
 router.post('/login', usersController.login);
 router.post('/logout', usersController.logout);
 
@@ -29,7 +29,7 @@ router.get('/:id/sessions', passport.authenticate('bearer', {
 }), usersController.getSessions);
 
 // updating the user must be authorized 
-// router.put('/:alias', passport.authenticate('bearer', {
+// router.put('/:name', passport.authenticate('bearer', {
 //     session: false
 // }), usersController.update);
 

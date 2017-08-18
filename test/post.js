@@ -15,7 +15,6 @@ describe("Posts CRUD test", function () {
 
     before(function (done) {
         User.create({
-            alias: 'post-test',
             password: '123456789',
             name: 'test_name',
             email: 'testpost@test.com',

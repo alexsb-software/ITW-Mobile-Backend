@@ -20,7 +20,6 @@ var seed = function () {
         console.log('Database created succesfully...');
         // For Testing
         // User.create({
-        //     alias: "test",
         //     password: "123456789",
         //     name: "test",
         //     email: "test@test.com"

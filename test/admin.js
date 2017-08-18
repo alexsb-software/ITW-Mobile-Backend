@@ -12,7 +12,6 @@ describe('Admin routers test for Users functionality', function () {
     // POST /admin/create/user
     it("Should create new user - return 201 and location of the new user", function (done) {
         user = {
-            alias: "test-alias2",
             name: "some name",
             email: "test@test.com",
             password: "122342342435"
@@ -27,12 +26,11 @@ describe('Admin routers test for Users functionality', function () {
 
                 User.findOne({
                     where: {
-                        alias: 'test-alias2'
+                        name: 'some name'
                     }
                 }).then(function (user) {
                     res.body.id.should.equal(user.id);
                     test_user = user;
-                    // res.get('Location').should.equal('/users' + user.alias);
                     done();
                 }).catch(done);
             });
@@ -62,7 +60,7 @@ describe('Admin routers test for Users functionality', function () {
                 if (err) return done(err);
                 User.findOne({
                     where: {
-                        alias: test_user.alias
+                        name: test_user.name
                     }
                 }).then(function (user) {
                     (user === null).should.equal(true)
