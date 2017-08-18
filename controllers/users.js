@@ -209,11 +209,25 @@ var addSession = function (req, res) {
         var user = results[0];
         var session = results[1];
         var reservation_session_types = new Set();
+        var reservation_session_times = new Set();
 
         user.getSessions().then((sessions) => {
             sessions.forEach((element) => {
                 reservation_session_types.add(element.reservation_type);
+                reservation_session_times.add({ start: element.start, end: element.end });
             })
+
+            var available = true;
+            reservation_session_times.forEach((reserved_session) => {
+                var start_time = require('moment')(reserved_session.start, 'HH:mm a');
+                var end_time = require('moment')(reserved_session.end, 'HH:mm a');
+                var session_start = require('moment')(session.start, 'HH:mm a');
+                var session_end = require('moment')(session.end, 'HH:mm a');
+
+                if (session_start.isSameOrBefore(end_time) && session_end.isSameOrAfter(start_time)) {
+                    available = false;
+                }
+            });
 
             sessions.forEach((element) => {
                 if (element.id == session.id) {
@@ -221,6 +235,9 @@ var addSession = function (req, res) {
                     throw false;
                 } else if (reservation_session_types.has(session.reservation_type)) {
                     res.status(400).json({ error: "Can't reserve more slots of this type" }).end();
+                    throw false;
+                } else if (!available) {
+                    res.status(400).json({ error: "User already reserved a session in this time slot" }).end();
                     throw false;
                 }
             }, this);

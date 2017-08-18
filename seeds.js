@@ -39,16 +39,16 @@ var seed = function () {
         // }).catch(console.log);
 
         // seed categories
-        // categoriesSeeder();
+        categoriesSeeder();
 
         // seed sessions
-        // sessionsSeeder();
+        sessionsSeeder();
 
         // seed speakers
-        // speakersSeeder();
+        speakersSeeder();
 
         // seed keys
-        // keysSeeder();
+        keysSeeder();
 
     }).catch(console.log);
 };

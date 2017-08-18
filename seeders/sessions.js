@@ -11,7 +11,7 @@ var seedSessions = function () {
     const adv_session_type = 'advanced session';
 
     const game_dev_type = 'game development';
-    const solar_type = 'solar energy';
+    const bim_type = 'BIM';
     const aerodynamics_type = 'aerodynamics';
     const rov_type = 'ROV';
     const iot_type = 'IOT';
@@ -212,114 +212,44 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Solar Eclipse Live Streaming',
-            start: '17:15',
-            end: '20:00',
-            day: day1,
-            type: lecture_type,
-            place: great_hall_place,
-            categories: ['General']
-        });
-
-        createSession({
             name: 'Game Development',
             start: '12:45',
-            end: '13:25',
-            day: day1,
-            type: adv_session_type,
-            reservation_type: game_dev_type,
-            place: delegates_hall_place,
-            number_of_seats: 20,
-            categories: ['Computer']
-        });
-
-        createSession({
-            name: 'Game Development',
-            start: '13:30',
             end: '14:15',
             day: day1,
             type: adv_session_type,
             reservation_type: game_dev_type,
             place: delegates_hall_place,
-            number_of_seats: 20,
+            number_of_seats: 60,
             categories: ['Computer']
         });
 
         createSession({
-            name: 'Solar Energy',
+            name: 'BIM',
             start: '13:30',
             end: '14:15',
             day: day1,
             type: workshop_type,
-            reservation_type: solar_type,
+            reservation_type: bim_type,
             place: room_c_place,
-            number_of_seats: 20,
-            categories: ['Power (Electrical)']
-        });
-
-        createSession({
-            name: 'Solar Energy',
-            start: '14:25',
-            end: '14:45',
-            day: day1,
-            type: workshop_type,
-            reservation_type: solar_type,
-            place: room_c_place,
-            number_of_seats: 20,
-            categories: ['Power (Electrical)']
-        });
-
-        createSession({
-            name: 'Solar Energy',
-            start: '14:45',
-            end: '15:45',
-            day: day1,
-            type: workshop_type,
-            reservation_type: solar_type,
-            place: room_c_place,
-            number_of_seats: 20,
+            number_of_seats: 60,
             categories: ['Power (Electrical)']
         });
 
         createSession({
             name: 'Aerodynamics',
             start: '16:20',
-            end: '17:00',
-            day: day1,
-            type: workshop_type,
-            reservation_type: aerodynamics_type,
-            place: room_c_place,
-            number_of_seats: 20,
-            categories: ['Power (Electrical)', 'Mechanical']
-        });
-
-        createSession({
-            name: 'Aerodynamics',
-            start: '17:10',
             end: '17:50',
             day: day1,
             type: workshop_type,
             reservation_type: aerodynamics_type,
             place: room_c_place,
-            number_of_seats: 50,
-            categories: ['Power (Electrical)', 'Mechanical'],
+            number_of_seats: 25,
+            categories: ['Power (Electrical)', 'Mechanical']
         });
 
         createSession({
             name: 'Cryptography',
             start: '16:20',
-            end: '17:00',
-            day: day1,
-            type: workshop_type,
-            reservation_type: crypt_type,
-            place: delegates_hall_place,
-            number_of_seats: 20,
-            categories: ['Computer']
-        });
-
-        createSession({
-            name: 'Cryptography',
-            start: '17:10',
             end: '17:50',
             day: day1,
             type: workshop_type,
@@ -467,49 +397,25 @@ var seedSessions = function () {
         createSession({
             name: 'ROV',
             start: '10:45',
-            end: '11:30',
-            day: day2,
-            type: adv_session_type,
-            reservation_type: rov_type,
-            place: delegates_hall_place,
-            categories: ['Power (Electrical), Mechanical', 'Electronics'],
-            number_of_seats: 50
-        });
-
-        createSession({
-            name: 'ROV',
-            start: '11:30',
             end: '12:00',
             day: day2,
             type: adv_session_type,
             reservation_type: rov_type,
             place: delegates_hall_place,
             categories: ['Power (Electrical), Mechanical', 'Electronics'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
         createSession({
             name: 'IOT',
             start: '15:40',
-            end: '16:25',
-            day: day2,
-            type: adv_session_type,
-            reservation_type: iot_type,
-            place: delegates_hall_place,
-            categories: ['Computer', 'Communications'],
-            number_of_seats: 50
-        });
-
-        createSession({
-            name: 'IOT',
-            start: '16:30',
             end: '17:15',
             day: day2,
             type: adv_session_type,
             reservation_type: iot_type,
             place: delegates_hall_place,
             categories: ['Computer', 'Communications'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
         createSession({
@@ -521,7 +427,7 @@ var seedSessions = function () {
             reservation_type: ros_type,
             place: great_hall_place,
             categories: ['Computer', 'Electronics'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
         createSession({
@@ -533,7 +439,7 @@ var seedSessions = function () {
             reservation_type: gallery_type,
             place: great_hall_place,
             categories: ['General'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
         createSession({
@@ -545,23 +451,11 @@ var seedSessions = function () {
             reservation_type: gallery_type,
             place: great_hall_place,
             categories: ['General'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
         createSession({
             name: 'Gallery Slot 3',
-            start: '12:00',
-            end: '12:30',
-            day: day2,
-            type: gallery_type,
-            reservation_type: gallery_type,
-            place: great_hall_place,
-            categories: ['General'],
-            number_of_seats: 50
-        });
-
-        createSession({
-            name: 'Gallery Slot 4',
             start: '12:40',
             end: '13:30',
             day: day2,
@@ -569,11 +463,11 @@ var seedSessions = function () {
             reservation_type: gallery_type,
             place: great_hall_place,
             categories: ['General'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
         createSession({
-            name: 'Gallery Slot 5',
+            name: 'Gallery Slot 4',
             start: '13:30',
             end: '14:10',
             day: day2,
@@ -581,12 +475,12 @@ var seedSessions = function () {
             reservation_type: gallery_type,
             place: great_hall_place,
             categories: ['General'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
 
         createSession({
-            name: 'Gallery Slot 6',
+            name: 'Gallery Slot 5',
             start: '14:30',
             end: '15:15',
             day: day2,
@@ -594,23 +488,11 @@ var seedSessions = function () {
             reservation_type: gallery_type,
             place: great_hall_place,
             categories: ['General'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
         createSession({
-            name: 'Gallery Slot 7',
-            start: '15:15',
-            end: '15:40',
-            day: day2,
-            type: gallery_type,
-            reservation_type: gallery_type,
-            place: great_hall_place,
-            categories: ['General'],
-            number_of_seats: 50
-        });
-
-        createSession({
-            name: 'Gallery Slot 8',
+            name: 'Gallery Slot 6',
             start: '15:40',
             end: '16:25',
             day: day2,
@@ -618,11 +500,11 @@ var seedSessions = function () {
             reservation_type: gallery_type,
             place: great_hall_place,
             categories: ['General'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
         createSession({
-            name: 'Gallery Slot 9',
+            name: 'Gallery Slot 7',
             start: '16:30',
             end: '17:15',
             day: day2,
@@ -630,7 +512,7 @@ var seedSessions = function () {
             reservation_type: gallery_type,
             place: great_hall_place,
             categories: ['General'],
-            number_of_seats: 50
+            number_of_seats: 60
         });
 
     }
