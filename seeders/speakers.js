@@ -87,6 +87,9 @@ var seedSpeakers = function () {
 
         Speaker.create({
             name: 'Abdelrahman Samir',
+            bio: `Abdulrahman currently works as a cloud computing engineer at Cloudnexa,a cloud organization dedicated to helping clients achieve their business 
+            and IT objectives utilizing AWS. He is passionate about Junior information security and information gathering. Samir graduated from the faculty of Engineering, 
+            Electronics & Communications, Minia University. He has worked as an intern at Trend Micro, specializing in Threat analysis, Malware overview, Ransomware protection.`
         }).then(function (speaker) {
             Session.findOne({ where: { name: { $like: '%Cloud Computing%' } } })
                 .then(function (session) {
@@ -114,7 +117,11 @@ var seedSpeakers = function () {
 
     {
         Speaker.create({
-            name: 'Moatsem',
+            name: 'Moatassem Desouky',
+            position: 'Embedded systems engineer at Penirium',
+            bio: `Moatassem is an Embedded systems engineer at Penirium. He studies computer science and communications at the 
+            faculty of Engineering, Alexandria university. In addition to being the ROV’17 competition local first place winner, regional second place winner 
+            and international gROVer award winner.`
         }).then(function (speaker) {
             Session.findOne({ where: { name: { $like: '%Chat Bots%' } } })
                 .then(function (session) {
@@ -157,6 +164,17 @@ var seedSpeakers = function () {
 
         Speaker.create({
             name: 'Hossam Fahmy',
+            bio: `Hossam is the Managing Partner of QtMatters Technologies, a technology company that builds Social, Mobile, Analytics and Cloud (SMAC) solutions 
+            for different sectors and industries, that relies on its team's extensive experience in software development and design. He is also the Program Manager 
+                of Egypt Internet of Things (IoT) Challenge, a national initiative for senior university students, startups, small and medium businesses that have 
+            innovative ideas in the area of Internet of Things (IoT) and related fields. Formerly, Hossam acted as the Egypt Corporate Affairs 
+            Manager at Intel Corporation, where he was responsible for the implementation of the Corporate Affairs Programs in Egypt and managing the 
+            governmental relations helping to drive policy, education, entrepreneurship, corporate social responsibility and community programs to enhance 
+            Intel reputation and business. <br><br>
+            
+            Hossam is also the Secretary of the IEEE Technology and Engineering Management Society (TEMS) Egypt Chapter.. In 2011, he was assigned as a member
+             of the IEEE Day organizing team; then the global IEEE Day 2012 team leader. For 3 successive years, Hossam served as the Student Representative of 
+             IEEE Egypt Section helping 25+ student branches in different universities all over Egypt.`
         }).then(function (speaker) {
             Session.findOne({ where: { name: { $like: '%Internet of Things%' } } })
                 .then(function (session) {
@@ -166,6 +184,12 @@ var seedSpeakers = function () {
 
         Speaker.create({
             name: 'Mohamed Farahat',
+            bio: `We gladly anounce that Dr. Mohamed Farhat will be our speaker in ITW'17 about "Smart Materials".
+            Dr Mohamed Farhat Hameed is an associate professor at Center for photonics and smart materials, Zewail City of Science and Technology.
+            His main research interests are focused on the areas of computational modelling of smart photonic devices such as photonic crystal applications, biosensors, liquid crystals and solar cells.
+            He is working in the area of “Computational Photonics , with good track records of publications. Based on his research, 73 journal papers, mostly in IEEE, OSA and IEE journals, have been published, 1 authored book published by Wiley, many chapters on book and 70 conference papers have been presented in the best national and international meetings.
+            He got his PhD in 2010 through a channel scheme between Leeds University, South Wales University (UK), and Mansoura University, Egypt. 
+            He got many national and international awards such as Incentive State Award for Engineering Sciences from the Egyptian Government for the years 2014/2015.`
         }).then(function (speaker) {
             Session.findOne({ where: { name: { $like: '%Smart Materials%' } } })
                 .then(function (session) {
