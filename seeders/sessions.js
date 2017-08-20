@@ -53,7 +53,7 @@ var seedSessions = function () {
         const day1 = 1;
         createSession({
             name: 'Registration',
-            start: '09:00',
+            start: '09:15',
             end: '10:00',
             day: day1,
             type: lecture_type,
@@ -62,7 +62,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'IEEE Talk',
+            name: 'How to make your journey through ITW useful',
             start: '10:00',
             end: '10:15',
             day: day1,
@@ -72,7 +72,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'How to make your journey through ITW useful',
+            name: 'NTRA Talk',
             start: '10:15',
             end: '10:30',
             day: day1,
@@ -132,23 +132,23 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'NTRA (Communications in Egypt)',
+            name: 'ITIDA Talk',
             start: '13:30',
-            end: '14:15',
-            day: day1,
-            type: lecture_type,
-            place: great_hall_place,
-            categories: ['General', 'Communications']
-        });
-
-        createSession({
-            name: 'NTRA Talk',
-            start: '14:25',
-            end: '14:45',
+            end: '13:50',
             day: day1,
             type: lecture_type,
             place: great_hall_place,
             categories: ['General']
+        });
+
+        createSession({
+            name: 'NTRA (Communications in Egypt)',
+            start: '14:00',
+            end: '14:45',
+            day: day1,
+            type: lecture_type,
+            place: great_hall_place,
+            categories: ['General', 'Communications']
         });
 
         createSession({
@@ -192,7 +192,7 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Vodafone HR',
+            name: 'Vodafone HR Talk',
             start: '18:00',
             end: '18:15',
             day: day1,
@@ -202,19 +202,9 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Motivational Talk',
-            start: '18:15',
-            end: '19:15',
-            day: day1,
-            type: lecture_type,
-            place: great_hall_place,
-            categories: ['General']
-        });
-
-        createSession({
             name: 'Game Development',
             start: '12:45',
-            end: '14:15',
+            end: '13:50',
             day: day1,
             type: adv_session_type,
             reservation_type: game_dev_type,
@@ -226,7 +216,7 @@ var seedSessions = function () {
         createSession({
             name: 'BIM',
             start: '13:30',
-            end: '14:15',
+            end: '13:50',
             day: day1,
             type: workshop_type,
             reservation_type: bim_type,
@@ -258,7 +248,6 @@ var seedSessions = function () {
             number_of_seats: 20,
             categories: ['Computer']
         });
-
     }
 
     // Day 2
@@ -266,7 +255,7 @@ var seedSessions = function () {
         const day2 = 2;
         createSession({
             name: 'Registration',
-            start: '09:00',
+            start: '09:15',
             end: '10:00',
             day: day2,
             type: lecture_type,
@@ -291,11 +280,11 @@ var seedSessions = function () {
             day: day2,
             type: lecture_type,
             place: great_hall_place,
-            categories: ['Mechanical']
+            categories: ['Mechanical', 'Electronics']
         });
 
         createSession({
-            name: 'Smart Cities',
+            name: 'Smart Cities (NTRA)',
             start: '11:30',
             end: '12:00',
             day: day2,
@@ -355,13 +344,13 @@ var seedSessions = function () {
         });
 
         createSession({
-            name: 'Silicon Photonics / Optical Cloaks',
+            name: 'Motivational Talk',
             start: '15:40',
             end: '16:25',
             day: day2,
             type: lecture_type,
             place: great_hall_place,
-            categories: ['Communications']
+            categories: ['General']
         });
 
         createSession({
@@ -381,7 +370,7 @@ var seedSessions = function () {
             day: day2,
             type: lecture_type,
             place: great_hall_place,
-            categories: [] // TODO: add category
+            categories: ['General']
         });
 
         createSession({
@@ -478,7 +467,6 @@ var seedSessions = function () {
             number_of_seats: 60
         });
 
-
         createSession({
             name: 'Gallery Slot 5',
             start: '14:30',
@@ -514,7 +502,6 @@ var seedSessions = function () {
             categories: ['General'],
             number_of_seats: 60
         });
-
     }
 
 };
