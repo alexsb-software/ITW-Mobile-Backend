@@ -12,11 +12,6 @@ var seedSpeakers = function () {
             bio: `Dr. Ravi was the Co-Chair Ground Safety Review Panel (GSRP) - International Space Station (NASA). <br> <br>
             Now Dr. Ravi works as the V.I.P. Tour Guide & International Public Speaker at NASA.`
         }).then(function (speaker) {
-            Session.findOne({ where: { name: { $like: '%How to make your journey through ITW useful%' } } })
-                .then(function (session) {
-                    speaker.addSession(session);
-                });
-
             Session.findOne({ where: { name: { $like: '%Journey to Mars%' } } })
                 .then(function (session) {
                     speaker.addSession(session);
@@ -222,16 +217,14 @@ var seedSpeakers = function () {
         // });
     });
 
-    // Speaker.create({
-    //     name: '',
-    //     position: '',
-    //     bio: ``
-    // }).then(function (speaker) {
-    //     Session.findOne({ where: { name: { $like: '%%' } } })
-    //         .then(function (session) {
-    //             speaker.addSession(session);
-    //         });
-    // });
+    Speaker.create({
+        name: 'Ziad Aly',
+    }).then(function (speaker) {
+        Session.findOne({ where: { name: { $like: '%Motivational Talk%' } } })
+            .then(function (session) {
+                speaker.addSession(session);
+            });
+    });
 
 };
 
