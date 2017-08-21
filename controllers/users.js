@@ -214,7 +214,7 @@ var addSession = function (req, res) {
         user.getSessions().then((sessions) => {
             sessions.forEach((element) => {
                 reservation_session_types.add(element.reservation_type);
-                reservation_session_times.add({ start: element.start, end: element.end });
+                reservation_session_times.add({ start: element.start, end: element.end, day: element.day });
             })
 
             var available = true;
@@ -224,7 +224,7 @@ var addSession = function (req, res) {
                 var session_start = require('moment')(session.start, 'HH:mm a');
                 var session_end = require('moment')(session.end, 'HH:mm a');
 
-                if (session_start.isSameOrBefore(end_time) && session_end.isSameOrAfter(start_time)) {
+                if (session_start.isSameOrBefore(end_time) && session_end.isSameOrAfter(start_time) && reserved_session.day == session.day) {
                     available = false;
                 }
             });
